@@ -312,21 +312,25 @@ class PowerPoint extends PhpPresentation
     {
         foreach ($this->slides as $slide) {
             //add text
-            if($this->is_multi_array($slide['texts'])){
-                foreach ($slide['texts'] as $item) {
-                    $this->createText($item);
+            if(!empty($slide['texts'])){
+                if($this->is_multi_array($slide['texts'])){
+                    foreach ($slide['texts'] as $item) {
+                        $this->createText($item);
+                    }
+                }else{
+                    $this->createText($slide['texts']);
                 }
-            }else{
-                $this->createText($slide['texts']);
             }
 
             //add image
-            if($this->is_multi_array($slide['images'])){
-                foreach ($slide['images'] as $item) {
-                    $this->createImage($item);
+            if(!empty($slide['images'])) {
+                if ($this->is_multi_array($slide['images'])) {
+                    foreach ($slide['images'] as $item) {
+                        $this->createImage($item);
+                    }
+                } else {
+                    $this->createText($slide['images']);
                 }
-            }else{
-                $this->createText($slide['images']);
             }
         }
     }
