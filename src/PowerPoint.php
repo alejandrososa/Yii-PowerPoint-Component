@@ -3,7 +3,7 @@
 /**
  * Creado con PhpStorm.
  * Copyright (c) html 2016.
- * Autor: Alejandro Sosa
+ * Autor: Franklyn Alejandro Sosa Pérez <alesjohnson@hotmail.com>
  * Fecha: 24/08/2016
  * Hora: 10:05
  */
@@ -17,10 +17,11 @@ use PhpOffice\PhpPresentation\Style\Alignment;
 use PhpOffice\PhpPresentation\Shape\Drawing;
 use PhpOffice\PhpPresentation\Slide\Background\Image;
 use PhpOffice\PhpPresentation\Shape\RichText;
+use AlejandroSosa\YiiPowerPoint\Common\Helper;
+
 
 /**
  * Class PowerPoint
- * @author Alejandro Sosa <alesjohnson@hotmail.com>
  */
 class PowerPoint extends PhpPresentation
 {
@@ -116,7 +117,7 @@ class PowerPoint extends PhpPresentation
      * Create presentation ppt
      * @param array $options
      */
-    public function exportPPT($options = [])
+    public function exportPPT()
     {
         $this->init();
 
@@ -168,7 +169,7 @@ class PowerPoint extends PhpPresentation
     {
         return (!empty($this->options) && !empty($this->options[$property])) ? true : false;
     }
-    
+
     /**
      * Set properties of file
      * Set the document information such as Title, Subject, Description, Creator, and Company name
@@ -296,24 +297,12 @@ class PowerPoint extends PhpPresentation
 
     //ASSESORS
 
-    /**
-     * Check if array is multidimensional
-     * @param $arr
-     * @return bool
-     */
-    private function is_multi_array($arr)
-    {
-        rsort($arr);
-        return isset($arr[0]) && is_array($arr[0]);
-    }
-
-    
     private function createCustomSlides()
     {
         foreach ($this->slides as $slide) {
             //add text
             if(!empty($slide['texts'])){
-                if($this->is_multi_array($slide['texts'])){
+                if(Helper::is_multi_array($slide['texts'])){
                     foreach ($slide['texts'] as $item) {
                         $this->createText($item);
                     }
@@ -324,7 +313,7 @@ class PowerPoint extends PhpPresentation
 
             //add image
             if(!empty($slide['images'])) {
-                if ($this->is_multi_array($slide['images'])) {
+                if (Helper::is_multi_array($slide['images'])) {
                     foreach ($slide['images'] as $item) {
                         $this->createImage($item);
                     }
