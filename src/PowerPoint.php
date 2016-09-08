@@ -23,7 +23,7 @@ use AlejandroSosa\YiiPowerPoint\Common\Helper;
 /**
  * Class PowerPoint
  */
-class PowerPoint extends CComponent
+class PowerPoint extends CApplicationComponent
 {
 
     public $options             = [];
