@@ -8,7 +8,7 @@
  * Hora: 10:05
  */
 
-namespace AlejandroSosa\PHPPowerPoint;
+namespace AlejandroSosa\YiiPowerPoint;
 
 use PhpOffice\PhpPresentation\PhpPresentation;
 use PhpOffice\PhpPresentation\IOFactory;
