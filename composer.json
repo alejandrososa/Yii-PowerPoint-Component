@@ -16,7 +16,11 @@
     "autoload": {
         "psr-4": {
             "AlejandroSosa\\YiiPowerPoint\\": "src"
-        }
+        },
+        "classmap": [
+            "Common/",
+            "PowerPoint.php"
+        ]
     },
     "extra": {
         "class": "AlejandroSosa\\YiiPowerPoint\\PowerPoint"
