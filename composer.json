@@ -18,7 +18,7 @@
             "AlejandroSosa\\YiiPowerPoint\\": "src/"
         },
         "classmap": [
-            "Common/",
+            "src/Common/",
             "src/PowerPoint.php"
         ]
     },
