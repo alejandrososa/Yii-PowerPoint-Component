@@ -97,7 +97,9 @@ class PowerPoint
     protected function init()
     {
         //file
-        $this->_pathDir = Yii::app()->getBasePath() . '/runtime/ppt';
+//        $this->_pathDir = Yii::app()->getBasePath() . '/runtime/ppt';
+        $this->_pathDir =   dirname(dirname(dirname(dirname(dirname(__FILE__))))) . '/runtime/ppt';
+
         $this->_fileName = $this->checkOptionsHasProperty('fileName') ? $this->options['fileName'] : $this->_fileName;
         $this->_fileExtension = $this->checkOptionsHasProperty('fileExtension')
             ? $this->options['fileExtension'] : $this->_fileExtension;
