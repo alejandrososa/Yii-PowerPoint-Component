@@ -9,7 +9,7 @@
     "authors": [
         {
             "name": "Franklyn Alejandro Sosa Pérez",
-            "email": "fsosa@externos.itnow.es"
+            "email": "alesjohnson@hotmail.com"
         }
     ],
     "minimum-stability": "dev",
@@ -17,5 +17,8 @@
         "psr-4": {
             "AlejandroSosa\\YiiPowerPoint\\": "src"
         }
+    },
+    "extra": {
+        "class": "AlejandroSosa\\YiiPowerPoint\\PowerPoint"
     }
 }
