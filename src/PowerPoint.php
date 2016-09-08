@@ -24,7 +24,7 @@ use AlejandroSosa\YiiPowerPoint\Common\Helper;
 /**
  * Class PowerPoint
  */
-class PowerPoint extends CApplicationComponent
+class PowerPoint
 {
 
     public $options             = [];
@@ -85,7 +85,7 @@ class PowerPoint extends CApplicationComponent
      */
     public function __construct()
     {
-        parent::__construct();
+//        parent::__construct();
 
         // Create new PHPPresentation object
         $this->_presentation = new PhpPresentation();

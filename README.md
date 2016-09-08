@@ -22,6 +22,12 @@ On command line, type in the following commands:
         $ composer init && composer install                    (optional if not have composer.json)
         $ composer require alejandrososa/yii-power-point dev-master
 
+Assuming that the vendor is installed in yiiAppPath/index.php
+
+        // Include the vendor's autoloader:
+        $vendor = dirname(__FILE__) . '/protected/vendor/autoload.php';
+        require_once($vendor);
+
 Now we import the vendor installed in the library main.php
 Edit the protected/config/main.php adding the following:
 
@@ -32,7 +38,7 @@ Edit the protected/config/main.php adding the following:
             // autoloading model and component classes
             'import' => array(
                 ...
-                'application.vendors.*',
+                'application.vendor.*',
                 ...
             )
             ...
