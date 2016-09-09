@@ -14,15 +14,9 @@
     ],
     "minimum-stability": "dev",
     "autoload": {
-        "psr-4": {
-            "AlejandroSosa\\YiiPowerPoint\\": "src/"
-        },
         "classmap": [
             "src/Common/",
             "src/PowerPoint.php"
         ]
-    },
-    "extra": {
-        "class": "AlejandroSosa\\YiiPowerPoint\\PowerPoint"
     }
 }
