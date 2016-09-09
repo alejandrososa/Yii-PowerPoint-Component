@@ -37,11 +37,16 @@ Edit the protected/config/main.php adding the following:
         return array(
             // autoloading model and component classes
             'import' => array(
-                ...
                 'application.vendor.*',
                 ...
             )
-            ...
+            // application components
+            'components'=>array(
+                'ppt' => array(
+                    'class' => 'AlejandroSosa\\YiiPowerPoint\\PowerPoint'
+                )
+                ...
+            )
         ),
 
 USAGE
@@ -50,6 +55,7 @@ USAGE
 The first step in our controller is import Power Point class
 
         // in your Controller
+        (use optional, only to call constants defined in PowerPoint)
         use AlejandroSosa\YiiPowerPoint\PowerPoint;
         
         class SiteController extends Controller {
@@ -59,7 +65,7 @@ The first step in our controller is import Power Point class
 Now in your action       
         
         /**
-        * Create PPT
+        * Generate PPT
         */
         public function actionCreatePPT()
         {
@@ -97,10 +103,7 @@ Now in your action
                 ]
             ];
             
-            $objPPT = new PowerPoint();
-            $objPPT->options = $options;
-            $objPPT->slides = $slides;
-            $objPPT->exportPPT();
+            Yii::app()->ppt->generate($options, $slides);
         }
        
        
