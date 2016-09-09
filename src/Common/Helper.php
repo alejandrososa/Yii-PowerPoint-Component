@@ -12,7 +12,6 @@ namespace AlejandroSosa\YiiPowerPoint\Common;
 
 class Helper
 {
-
     /**
      * Check if array is multidimensional
      * @param $arr
@@ -21,5 +20,16 @@ class Helper
     public static function is_multi_array( $arr ) {
         rsort( $arr );
         return isset( $arr[0] ) && is_array( $arr[0] );
+    }
+
+    /**
+     * Check if attribute options has property
+     * @param string $property
+     * @param array $array
+     * @return bool
+     */
+    public static function hasArrayProperty($property, $array = [])
+    {
+        return (!empty($array) && !empty($array[$property])) ? true : false;
     }
 }

@@ -24,7 +24,7 @@ use AlejandroSosa\YiiPowerPoint\Common\Helper;
 /**
  * Class PowerPoint
  */
-class PowerPoint
+class PowerPoint extends \CApplicationComponent
 {
 
     public $options             = [];
@@ -85,8 +85,6 @@ class PowerPoint
      */
     public function __construct()
     {
-//        parent::__construct();
-
         // Create new PHPPresentation object
         $this->_presentation = new PhpPresentation();
     }
@@ -94,22 +92,21 @@ class PowerPoint
     /**
      * Init all vars
      */
-    protected function init()
+    public function init()
     {
         //file
-//        $this->_pathDir = Yii::app()->getBasePath() . '/runtime/ppt';
-        $this->_pathDir =   dirname(dirname(dirname(dirname(dirname(__FILE__))))) . '/runtime/ppt';
-
-        $this->_fileName = $this->checkOptionsHasProperty('fileName') ? $this->options['fileName'] : $this->_fileName;
-        $this->_fileExtension = $this->checkOptionsHasProperty('fileExtension')
-            ? $this->options['fileExtension'] : $this->_fileExtension;
+        $this->_pathDir         = \Yii::app()->getBasePath() . '/runtime/ppt';
+        $this->_fileName        = Helper::hasArrayProperty('fileName', $this->options)
+                                        ? $this->options['fileName'] : $this->_fileName;
+        $this->_fileExtension   = Helper::hasArrayProperty('fileExtension', $this->options)
+                                        ? $this->options['fileExtension'] : $this->_fileExtension;
 
         //properties of file
-        $this->_fileProperties = $this->checkOptionsHasProperty('fileProperties')
-            ? $this->options['fileProperties'] : $this->_fileProperties;
+        $this->_fileProperties  = Helper::hasArrayProperty('fileProperties', $this->options)
+                                        ? $this->options['fileProperties'] : $this->_fileProperties;
 
         //layout of all slides
-        $this->_paramsLayout = $this->checkOptionsHasProperty('layout') ? $this->options['layout'] : [];
+        $this->_paramsLayout = Helper::hasArrayProperty('layout', $this->options) ? $this->options['layout'] : [];
 
         //directory for save file ppt
         $this->initStorage();
@@ -120,8 +117,11 @@ class PowerPoint
      * Create presentation ppt
      * @param array $options
      */
-    public function exportPPT()
+    public function generate($options = [], $slides = [])
     {
+        $this->options = $options;
+        $this->slides = $slides;
+
         $this->init();
 
         //set properties informacion file
@@ -161,16 +161,6 @@ class PowerPoint
         if(!file_exists($this->_pathDir)){
             mkdir($this->_pathDir);
         }
-    }
-
-    /**
-     * Check if attribute options has property
-     * @param $property string
-     * @return bool
-     */
-    private function checkOptionsHasProperty($property)
-    {
-        return (!empty($this->options) && !empty($this->options[$property])) ? true : false;
     }
 
     /**
