@@ -234,7 +234,7 @@ class PowerPoint extends \CApplicationComponent
         $shape->setHeight($height)->setWidth($width)->setOffsetX($offset_x)->setOffsetY($offset_y);
 
         //set align of text
-        $this->setAlignText($shape, $align);
+        Alignment::setAlignText($shape, $align);
 
         //set text
         $current_text = $shape->createTextRun($text);

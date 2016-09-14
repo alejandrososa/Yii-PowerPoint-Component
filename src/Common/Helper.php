@@ -10,6 +10,10 @@
 
 namespace AlejandroSosa\YiiPowerPoint\Common;
 
+/**
+ * Class Helper
+ * @package AlejandroSosa\YiiPowerPoint\Common
+ */
 class Helper
 {
     /**

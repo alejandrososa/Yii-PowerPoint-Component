@@ -65,7 +65,7 @@ The first step in our controller is import Power Point class
 Now in your action       
         
         /**
-        * Generate PPT
+        * Create PPT
         */
         public function actionCreatePPT()
         {
