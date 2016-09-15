@@ -4,7 +4,7 @@
     "type": "yii-component",
     "require": {
         "php": ">=5.3.0",
-        "phpoffice/phppresentation": "dev-master"
+        "phpoffice/phppresentation": "v0.7.0"
     },
     "authors": [
         {

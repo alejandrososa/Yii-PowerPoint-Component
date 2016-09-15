@@ -117,6 +117,7 @@ class PowerPoint extends \CApplicationComponent
     /**
      * Create presentation ppt
      * @param array $options
+     * @param array $slides
      */
     public function generate($options = [], $slides = [])
     {
@@ -283,7 +284,7 @@ class PowerPoint extends \CApplicationComponent
         $offset_y   = !empty($params['oy']) ? $params['oy'] : self::TEXT_OFFSET_Y;
 
         $current_slide = $this->_presentation->getActiveSlide();
-        $shape = $current_slide->createRichTextShape();
+//        $shape = $current_slide->createRichTextShape();
 
 
     }
