@@ -21,9 +21,10 @@ class Helper
      * @param $arr
      * @return bool
      */
-    public static function is_multi_array( $arr ) {
-        rsort( $arr );
-        return isset( $arr[0] ) && is_array( $arr[0] );
+    public static function is_multi_array($arr)
+    {
+        rsort($arr);
+        return isset($arr[0]) && is_array($arr[0]);
     }
 
     /**
@@ -35,5 +36,18 @@ class Helper
     public static function hasArrayProperty($property, $array = [])
     {
         return (!empty($array) && !empty($array[$property])) ? true : false;
+    }
+
+    /**
+     * Create directory if not exists
+     * @param $path_directory
+     */
+    public static function createDirectory($path_directory)
+    {
+        if(isset($path_directory)) {
+            if (!file_exists($path_directory)) {
+                mkdir($path_directory);
+            }
+        }
     }
 }
