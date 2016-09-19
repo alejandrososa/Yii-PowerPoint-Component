@@ -14,16 +14,14 @@ namespace AlejandroSosa\YiiPowerPoint;
 use PhpOffice\PhpPresentation\PhpPresentation;
 use PhpOffice\PhpPresentation\IOFactory;
 use PhpOffice\PhpPresentation\Style\Color;
-//use PhpOffice\PhpPresentation\Style\Alignment;
 use PhpOffice\PhpPresentation\Shape\Drawing;
 use PhpOffice\PhpPresentation\Slide\Background\Image;
 use PhpOffice\PhpPresentation\Shape\RichText;
-
 use PhpOffice\PhpPresentation\Style\Border;
 use PhpOffice\PhpPresentation\Style\Fill;
-
 use AlejandroSosa\YiiPowerPoint\Common\Helper;
 use AlejandroSosa\YiiPowerPoint\Common\Alignment;
+use AlejandroSosa\YiiPowerPoint\Common\Table;
 
 /**
  * Class PowerPoint
@@ -397,7 +395,6 @@ class PowerPoint extends \CApplicationComponent
         }
 
 // Add row
-//        echo date('H:i:s') . ' Add row'.EOL;
         $row = $shape->createRow();
         $row->getFill()->setFillType(Fill::FILL_SOLID)
             ->setStartColor(new Color('FFE06B20'))
@@ -463,7 +460,7 @@ class PowerPoint extends \CApplicationComponent
 
             //add text
             if(!empty($slide['texts'])){
-                if(Helper::is_multi_array($slide['texts'])){
+                if(Helper::isMultiArray($slide['texts'])){
                     foreach ($slide['texts'] as $item) {
                         $this->createText($item);
                     }
@@ -474,7 +471,7 @@ class PowerPoint extends \CApplicationComponent
 
             //add image
             if(!empty($slide['images'])) {
-                if (Helper::is_multi_array($slide['images'])) {
+                if (Helper::isMultiArray($slide['images'])) {
                     foreach ($slide['images'] as $item) {
                         $this->createImage($item);
                     }
@@ -485,7 +482,7 @@ class PowerPoint extends \CApplicationComponent
 
             //add table
             if(!empty($slide['tables'])) {
-                if (Helper::is_multi_array($slide['tables'])) {
+                if (Helper::isMultiArray($slide['tables'])) {
                     foreach ($slide['tables'] as $item) {
                         $this->createTable($item);
                     }

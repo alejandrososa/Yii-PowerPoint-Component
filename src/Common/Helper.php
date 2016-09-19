@@ -21,10 +21,9 @@ class Helper
      * @param $arr
      * @return bool
      */
-    public static function is_multi_array($arr)
-    {
-        rsort($arr);
-        return isset($arr[0]) && is_array($arr[0]);
+    public static function isMultiArray( $arr ) {
+        rsort( $arr );
+        return isset( $arr[0] ) && is_array( $arr[0] );
     }
 
     /**
@@ -36,6 +35,34 @@ class Helper
     public static function hasArrayProperty($property, $array = [])
     {
         return (!empty($array) && !empty($array[$property])) ? true : false;
+    }
+
+    /**
+     * Convert string to array by delimiter
+     * @param $string
+     * @param $delimiter
+     * @return array
+     */
+    public static function convertStringToArray($string, $delimiter)
+    {
+        if(empty($string) && empty($delimiter)){
+            return [];
+        }
+        return explode($delimiter, $string);
+    }
+
+    /**
+     * Check if string contains substring
+     * @param $string
+     * @param $substring
+     * @return bool
+     */
+    public static function stringContains($string, $substring)
+    {
+        if(empty($string) && empty($substring)){
+            return false;
+        }
+        return strpos($string, $substring) !== false ? true : false;
     }
 
     /**
