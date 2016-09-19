@@ -33,7 +33,7 @@ class Image
         unlink('tmp.png');
 
         if ($info[0] > 0 && $info[1] > 0 && $info['mime']) {
-            $result = true;
+            $result = $info;
         }
 
         return $result;

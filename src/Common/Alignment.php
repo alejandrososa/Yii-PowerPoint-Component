@@ -12,7 +12,7 @@ namespace AlejandroSosa\YiiPowerPoint\Common;
 use AlejandroSosa\YiiPowerPoint\PowerPoint;
 use PhpOffice\PhpPresentation\Style\Alignment as Align;
 use PhpOffice\PhpPresentation\Shape\RichText;
-
+use PhpOffice\PhpPresentation\Shape\RichText\Paragraph;
 
 /**
  * Class Alignment
@@ -22,13 +22,13 @@ class Alignment extends PowerPoint
 {
     /**
      * Set align of text
-     * @param RichText $shape
+     * @param Paragraph $shape
      * @param $align
      */
-    public static function setAlignText(RichText $shape, $align)
+    public static function setAlignText(Paragraph $shape, $align)
     {
         if(!empty($shape)){
-            $obj = $shape->getActiveParagraph()->getAlignment();
+            $obj = $shape->getAlignment();
 
             switch ($align){
                 //horizontal
