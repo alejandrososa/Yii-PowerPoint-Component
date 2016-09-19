@@ -76,6 +76,7 @@ class PowerPoint extends \CApplicationComponent
     const TEXT_OFFSET_X                         = 170;
     const TEXT_OFFSET_Y                         = 180;
     const TEXT_SIZE                             = 14;
+    const TEXT_BREAK                            = '<br>';
 
     const DEFAULT_COLOR                         = '00000000';
 
@@ -129,9 +130,6 @@ class PowerPoint extends \CApplicationComponent
 
         //set properties informacion file
         $this->setPropertiesFile();
-
-        //set layout
-        $this->assignBackground();
 
         //create slides
         $this->createCustomSlides();
@@ -262,15 +260,32 @@ class PowerPoint extends \CApplicationComponent
         $shape->setHeight($height)->setWidth($width)->setOffsetX($offset_x)->setOffsetY($offset_y);
 
         //set align of text
-        Alignment::setAlignText($shape, $align);
+        $paragraph = $shape->getActiveParagraph();
+        Alignment::setAlignText($paragraph, $align);
 
-        //set text
-        $current_text = $shape->createTextRun($text);
+        //check if text has break line
+        if(Helper::stringContains($text, self::TEXT_BREAK)){
+            foreach (Helper::convertStringToArray($text, self::TEXT_BREAK) as $item) {
+                //set text
+                $current_text = $shape->createTextRun($item);
 
-        //set style
-        $current_text->getFont()->setBold($bold);
-        $current_text->getFont()->setSize($size);
-        $current_text->getFont()->setColor( new Color($color) );
+                //set style
+                $current_text->getFont()->setBold($bold);
+                $current_text->getFont()->setSize($size);
+                $current_text->getFont()->setColor( new Color($color) );
+
+                //add breakline
+                $shape->createBreak();
+            }
+        }else{
+            //set text
+            $current_text = $shape->createTextRun($text);
+
+            //set style
+            $current_text->getFont()->setBold($bold);
+            $current_text->getFont()->setSize($size);
+            $current_text->getFont()->setColor( new Color($color) );
+        }
     }
 
     private function createImage($params = [])
@@ -293,37 +308,69 @@ class PowerPoint extends \CApplicationComponent
 
     private function createTable($params = [])
     {
-        $objPHPPresentation = $this->_presentation;
+        //table
+        $height     = Helper::hasArrayProperty('height', $params) ? $params['height'] : self::TEXT_HEIGHT;
+        $width      = Helper::hasArrayProperty('width', $params) ? $params['width'] : self::TEXT_WIDTH;
+        $offset_x   = Helper::hasArrayProperty('ox', $params) ? $params['ox'] : self::TEXT_OFFSET_X;
+        $offset_y   = Helper::hasArrayProperty('oy', $params) ? $params['oy'] : self::TEXT_OFFSET_Y;
+        $col_header = Helper::hasArrayProperty('header', $params) ? $params['header'] : [];
 
-// Set properties
-        $objPHPPresentation->getProperties()->setCreator('PHPOffice')
-            ->setLastModifiedBy('PHPPresentation Team')
-            ->setTitle('Sample 06 Title')
-            ->setSubject('Sample 06 Subject')
-            ->setDescription('Sample 06 Description')
-            ->setKeywords('office 2007 openxml libreoffice odt php')
-            ->setCategory('Sample Category');
+        //header
+        $header_titles      = Helper::hasArrayProperty('titles', $col_header) ? $col_header['titles'] : [];
+        $header_style       = Helper::hasArrayProperty('style', $col_header) ? $col_header['style'] : [];
+        $header_background  = Helper::hasArrayProperty('background', $header_style) ? $header_style['background'] : '';
+        $header_text_bold   = Helper::hasArrayProperty('bold', $header_style) ? $header_style['bold'] : '';
+        $header_text_size   = Helper::hasArrayProperty('size', $header_style) ? $header_style['size'] : '';
+        $header_text_color  = Helper::hasArrayProperty('color', $header_style) ? $header_style['color'] : '';
+        $header_text_align  = Helper::hasArrayProperty('align', $header_style) ? $header_style['align'] : self::TEXT_ALIGN_HORIZONTAL_CENTER;
 
-// Remove first slide
-        $objPHPPresentation->removeSlideByIndex(0);
+        $col_total  = count($header_titles) > 0 ? count($header_titles) : 0;
 
-// Create slide
-        $currentSlide = $this->createTemplatedSlide($objPHPPresentation);
 
-// Create a shape (table)
-        $shape = $currentSlide->createTableShape(3);
-        $shape->setHeight(200);
-        $shape->setWidth(600);
-        $shape->setOffsetX(150);
-        $shape->setOffsetY(300);
+        $align      = Helper::hasArrayProperty('align', $params) ? $params['align'] : self::TEXT_ALIGN_HORIZONTAL_CENTER;
+        $text       = Helper::hasArrayProperty('text', $params) ? $params['text'] : '';
+        $bold       = Helper::hasArrayProperty('bold', $params) ? $params['bold'] : false;
+        $color      = Helper::hasArrayProperty('color', $params) ? $params['color'] : self::DEFAULT_COLOR;
+        $size       = Helper::hasArrayProperty('size', $params) ? $params['size'] : self::TEXT_SIZE;
 
-// Add row
-//        echo date('H:i:s') . ' Add row'.EOL;
+        // get current slide
+        $currentSlide = $this->_presentation->getActiveSlide();
+
+        // Create a shape (table)
+        $shape = $currentSlide->createTableShape($col_total);
+        $shape->setHeight($height);
+        $shape->setWidth($width);
+        $shape->setOffsetX($offset_x);
+        $shape->setOffsetY($offset_y);
+        $shape->getBorder()->setColor(new Color('FFFFFFFF'))->setLineWidth(1);
+
+        // Add row header
         $row = $shape->createRow();
-//        $row->getFill()->setFillType(Fill::FILL_GRADIENT_LINEAR)
-//            ->setRotation(90)
-//            ->setStartColor(new Color('FFE06B20'))
-//            ->setEndColor(new Color('FFFFFFFF'));
+        $row->setHeight(20);
+        $row->getFill()->setFillType(Fill::FILL_SOLID)
+            ->setRotation(90)
+            ->setStartColor(new Color($header_background))
+            ->setEndColor(new Color($header_background));
+
+        foreach ($header_titles as $header_title) {
+            $row->nextCell()->createTextRun($header_title)->getFont()->setBold($bold);
+            $paragraph = $row->getCell()->getActiveParagraph();
+            Alignment::setAlignText($paragraph, $header_text_align);
+        }
+
+        foreach ($row->getCells() as $cell) {
+            $cell->getBorders()->getBottom()->setLineWidth(1)
+                ->setColor(new Color('FFFFFFFF'))
+                ->setLineStyle(Border::LINE_SINGLE)
+                ->setDashStyle(Border::DASH_SOLID);
+        }
+
+
+        $row = $shape->createRow();
+        $row->getFill()->setFillType(Fill::FILL_SOLID)
+            ->setRotation(90)
+            ->setStartColor(new Color('FFE06B20'))
+            ->setEndColor(new Color('FFFFFFFF'));
         $cell = $row->nextCell();
         $cell->setColSpan(3);
         $cell->createTextRun('Title row')->getFont()->setBold(true)->setSize(16);
@@ -403,7 +450,17 @@ class PowerPoint extends \CApplicationComponent
 
     private function createCustomSlides()
     {
-        foreach ($this->slides as $slide) {
+        //Remove first slide
+        $this->_presentation->removeSlideByIndex(0);
+
+        foreach ($this->slides as $index => $slide) {
+            //create slide
+            $this->_presentation->createSlide();
+            $this->_presentation->setActiveSlideIndex($index);
+
+            //set layout
+            $this->assignBackground();
+
             //add text
             if(!empty($slide['texts'])){
                 if(Helper::is_multi_array($slide['texts'])){
@@ -427,7 +484,6 @@ class PowerPoint extends \CApplicationComponent
             }
 
             //add table
-            $this->createTable([]);
             if(!empty($slide['tables'])) {
                 if (Helper::is_multi_array($slide['tables'])) {
                     foreach ($slide['tables'] as $item) {
