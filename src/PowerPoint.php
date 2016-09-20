@@ -11,6 +11,7 @@
 
 namespace AlejandroSosa\YiiPowerPoint;
 
+use AlejandroSosa\YiiPowerPoint\Common\Style;
 use PhpOffice\PhpPresentation\PhpPresentation;
 use PhpOffice\PhpPresentation\IOFactory;
 use PhpOffice\PhpPresentation\Style\Color;
@@ -199,15 +200,12 @@ class PowerPoint extends \CApplicationComponent
             return false;
         }
 
-        $bkImage = new Image();
-        $bkImage->setPath($this->_paramsLayout['background']);
-
         $current_slide = $this->_presentation->getActiveSlide();
-        $current_slide->setBackground($bkImage);
+        Style::setBackgroundSlide($current_slide, $this->_paramsLayout['background']);
     }
 
     /**
-     * Creates a templated slide
+     * Add logo into slide
      *
      * @param PHPPresentation $objPHPPresentation
      * @return \PhpOffice\PhpPresentation\Slide
@@ -286,6 +284,10 @@ class PowerPoint extends \CApplicationComponent
         }
     }
 
+    /**
+     * Create custom image into slide
+     * @param array $params
+     */
     private function createImage($params = [])
     {
         $height     = Helper::hasArrayProperty('height', $params) ? $params['height'] : self::TEXT_HEIGHT;
@@ -304,6 +306,10 @@ class PowerPoint extends \CApplicationComponent
         $shape->setName($name)->setDescription($description);
     }
 
+    /**
+     * Create custom table into slide
+     * @param array $params
+     */
     private function createTable($params = [])
     {
         //table
@@ -311,140 +317,45 @@ class PowerPoint extends \CApplicationComponent
         $width      = Helper::hasArrayProperty('width', $params) ? $params['width'] : self::TEXT_WIDTH;
         $offset_x   = Helper::hasArrayProperty('ox', $params) ? $params['ox'] : self::TEXT_OFFSET_X;
         $offset_y   = Helper::hasArrayProperty('oy', $params) ? $params['oy'] : self::TEXT_OFFSET_Y;
-        $col_header = Helper::hasArrayProperty('header', $params) ? $params['header'] : [];
+        $row_header = Helper::hasArrayProperty('header', $params) ? $params['header'] : [];
+        $rows       = Helper::hasArrayProperty('rows', $params) ? $params['rows'] : [];
 
         //header
-        $header_titles      = Helper::hasArrayProperty('titles', $col_header) ? $col_header['titles'] : [];
-        $header_style       = Helper::hasArrayProperty('style', $col_header) ? $col_header['style'] : [];
-        $header_background  = Helper::hasArrayProperty('background', $header_style) ? $header_style['background'] : '';
-        $header_text_bold   = Helper::hasArrayProperty('bold', $header_style) ? $header_style['bold'] : '';
-        $header_text_size   = Helper::hasArrayProperty('size', $header_style) ? $header_style['size'] : '';
-        $header_text_color  = Helper::hasArrayProperty('color', $header_style) ? $header_style['color'] : '';
+        $header_columns     = Helper::hasArrayProperty('columns', $row_header) ? $row_header['columns'] : [];
+        $header_style       = Helper::hasArrayProperty('style', $row_header) ? $row_header['style'] : [];
+        $header_background  = Helper::hasArrayProperty('background', $header_style) ? $header_style['background'] : 'FFFFFFFF';
+        $header_text_bold   = Helper::hasArrayProperty('bold', $header_style) ? $header_style['bold'] : false;
+        $header_text_size   = Helper::hasArrayProperty('size', $header_style) ? $header_style['size'] : self::TEXT_SIZE;
+        $header_text_color  = Helper::hasArrayProperty('color', $header_style) ? $header_style['color'] : self::DEFAULT_COLOR;
         $header_text_align  = Helper::hasArrayProperty('align', $header_style) ? $header_style['align'] : self::TEXT_ALIGN_HORIZONTAL_CENTER;
+        $header_width       = Helper::hasArrayProperty('width', $header_style) ? $header_style['width'] : 100;
+        $header_height      = Helper::hasArrayProperty('height', $header_style) ? $header_style['height'] : 20;
 
-        $col_total  = count($header_titles) > 0 ? count($header_titles) : 0;
+        $col_total  = count($header_columns) > 0 ? count($header_columns) : 0;
 
-
-        $align      = Helper::hasArrayProperty('align', $params) ? $params['align'] : self::TEXT_ALIGN_HORIZONTAL_CENTER;
-        $text       = Helper::hasArrayProperty('text', $params) ? $params['text'] : '';
-        $bold       = Helper::hasArrayProperty('bold', $params) ? $params['bold'] : false;
-        $color      = Helper::hasArrayProperty('color', $params) ? $params['color'] : self::DEFAULT_COLOR;
-        $size       = Helper::hasArrayProperty('size', $params) ? $params['size'] : self::TEXT_SIZE;
-
-        // get current slide
+        //get current slide
         $currentSlide = $this->_presentation->getActiveSlide();
 
-        // Create a shape (table)
-        $shape = $currentSlide->createTableShape($col_total);
-        $shape->setHeight($height);
-        $shape->setWidth($width);
-        $shape->setOffsetX($offset_x);
-        $shape->setOffsetY($offset_y);
-        $shape->getBorder()->setColor(new Color('FFFFFFFF'))->setLineWidth(1);
+        //create a table shape
+        $shape = Table::createTable($currentSlide, $col_total, $height, $width, $offset_x, $offset_y);
 
-        // Add row header
-        $row = $shape->createRow();
-        $row->setHeight(20);
-        $row->getFill()->setFillType(Fill::FILL_SOLID)
-            ->setRotation(90)
-            ->setStartColor(new Color($header_background))
-            ->setEndColor(new Color($header_background));
+        //add row header
+        Table::createRow($shape, $header_columns, $header_text_size, $header_text_bold, $header_text_color,
+            $header_text_align, $header_background, $header_width, $header_height);
 
-        foreach ($header_titles as $header_title) {
-            $row->nextCell()->createTextRun($header_title)->getFont()->setBold($bold);
-            $paragraph = $row->getCell()->getActiveParagraph();
-            Alignment::setAlignText($paragraph, $header_text_align);
+        //add the remaining rows
+        foreach ($rows as $row) {
+            $texts = $row['columns'];
+            $style = $row['style'];
+            Table::createRow($shape, $texts, $style['size'], $style['bold'], $style['color'], $style['align'], $style['background']);
         }
-
-        foreach ($row->getCells() as $cell) {
-            $cell->getBorders()->getBottom()->setLineWidth(1)
-                ->setColor(new Color('FFFFFFFF'))
-                ->setLineStyle(Border::LINE_SINGLE)
-                ->setDashStyle(Border::DASH_SOLID);
-        }
-
-
-        $row = $shape->createRow();
-        $row->getFill()->setFillType(Fill::FILL_SOLID)
-            ->setRotation(90)
-            ->setStartColor(new Color('FFE06B20'))
-            ->setEndColor(new Color('FFFFFFFF'));
-        $cell = $row->nextCell();
-        $cell->setColSpan(3);
-        $cell->createTextRun('Title row')->getFont()->setBold(true)->setSize(16);
-        $cell->getBorders()->getBottom()->setLineWidth(4)
-            ->setLineStyle(Border::LINE_SINGLE)
-            ->setDashStyle(Border::DASH_DASH);
-
-// Add row
-//        echo date('H:i:s') . ' Add row'.EOL;
-        $row = $shape->createRow();
-        $row->setHeight(20);
-        $row->getFill()->setFillType(Fill::FILL_SOLID)
-            ->setRotation(90)
-            ->setStartColor(new Color('FFE06B20'))
-            ->setEndColor(new Color('FFFFFFFF'));
-        $row->nextCell()->createTextRun('R1C1')->getFont()->setBold(true);
-        $row->nextCell()->createTextRun('R1C2')->getFont()->setBold(true);
-        $row->nextCell()->createTextRun('R1C3')->getFont()->setBold(true);
-
-        foreach ($row->getCells() as $cell) {
-            $cell->getBorders()->getTop()->setLineWidth(4)
-                ->setLineStyle(Border::LINE_SINGLE)
-                ->setDashStyle(Border::DASH_DASH);
-        }
-
-// Add row
-        $row = $shape->createRow();
-        $row->getFill()->setFillType(Fill::FILL_SOLID)
-            ->setStartColor(new Color('FFE06B20'))
-            ->setEndColor(new Color('FFE06B20'));
-        $row->nextCell()->createTextRun('R2C1');
-        $row->nextCell()->createTextRun('R2C2');
-        $row->nextCell()->createTextRun('R2C3');
-
-// Add row
-//        echo date('H:i:s') . ' Add row'.EOL;
-        $row = $shape->createRow();
-        $row->getFill()->setFillType(Fill::FILL_SOLID)
-            ->setStartColor(new Color('FFE06B20'))
-            ->setEndColor(new Color('FFE06B20'));
-        $row->nextCell()->createTextRun('R3C1');
-        $row->nextCell()->createTextRun('R3C2');
-        $row->nextCell()->createTextRun('R3C3');
-
-// Add row
-//        echo date('H:i:s') . ' Add row'.EOL;
-        $row = $shape->createRow();
-        $row->getFill()->setFillType(Fill::FILL_SOLID)
-            ->setStartColor(new Color('FFE06B20'))
-            ->setEndColor(new Color('FFE06B20'));
-        $cellC1 = $row->nextCell();
-        $textRunC1 = $cellC1->createTextRun('Link');
-        $textRunC1->getHyperlink()->setUrl('https://github.com/PHPOffice/PHPPresentation/')->setTooltip('PHPPresentation');
-        $cellC2 = $row->nextCell();
-        $textRunC2 = $cellC2->createTextRun('RichText with');
-        $textRunC2->getFont()->setBold(true);
-        $textRunC2->getFont()->setSize(12);
-        $textRunC2->getFont()->setColor(new Color('FF000000'));
-        $cellC2->createBreak();
-        $textRunC2 = $cellC2->createTextRun('Multiline');
-        $textRunC2->getFont()->setBold(true);
-        $textRunC2->getFont()->setSize(14);
-        $textRunC2->getFont()->setColor(new Color('FF0088FF'));
-        $cellC3 = $row->nextCell();
-        $textRunC3 = $cellC3->createTextRun('Link Github');
-        $textRunC3->getHyperlink()->setUrl('https://github.com')->setTooltip('GitHub');
-        $cellC3->createBreak();
-        $textRunC3 = $cellC3->createTextRun('Link Google');
-        $textRunC3->getHyperlink()->setUrl('https://google.com')->setTooltip('Google');
-
-
     }
-
 
     //ASSESORS
 
+    /**
+     * Create custom slide with texts, images and tables
+     */
     private function createCustomSlides()
     {
         //Remove first slide
@@ -459,7 +370,7 @@ class PowerPoint extends \CApplicationComponent
             $this->assignBackground();
 
             //add text
-            if(!empty($slide['texts'])){
+            if(Helper::hasArrayProperty('texts', $slide)){
                 if(Helper::isMultiArray($slide['texts'])){
                     foreach ($slide['texts'] as $item) {
                         $this->createText($item);
@@ -470,7 +381,7 @@ class PowerPoint extends \CApplicationComponent
             }
 
             //add image
-            if(!empty($slide['images'])) {
+            if(Helper::hasArrayProperty('images', $slide)) {
                 if (Helper::isMultiArray($slide['images'])) {
                     foreach ($slide['images'] as $item) {
                         $this->createImage($item);
@@ -481,7 +392,7 @@ class PowerPoint extends \CApplicationComponent
             }
 
             //add table
-            if(!empty($slide['tables'])) {
+            if(Helper::hasArrayProperty('tables', $slide)) {
                 if (Helper::isMultiArray($slide['tables'])) {
                     foreach ($slide['tables'] as $item) {
                         $this->createTable($item);
