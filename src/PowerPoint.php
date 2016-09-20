@@ -11,7 +11,6 @@
 
 namespace AlejandroSosa\YiiPowerPoint;
 
-use AlejandroSosa\YiiPowerPoint\Common\Style;
 use PhpOffice\PhpPresentation\PhpPresentation;
 use PhpOffice\PhpPresentation\IOFactory;
 use PhpOffice\PhpPresentation\Style\Color;
@@ -21,8 +20,8 @@ use PhpOffice\PhpPresentation\Shape\RichText;
 use PhpOffice\PhpPresentation\Style\Border;
 use PhpOffice\PhpPresentation\Style\Fill;
 use AlejandroSosa\YiiPowerPoint\Common\Helper;
-use AlejandroSosa\YiiPowerPoint\Common\Alignment;
 use AlejandroSosa\YiiPowerPoint\Common\Table;
+use AlejandroSosa\YiiPowerPoint\Common\Style;
 
 /**
  * Class PowerPoint
@@ -257,7 +256,7 @@ class PowerPoint extends \CApplicationComponent
 
         //set align of text
         $paragraph = $shape->getActiveParagraph();
-        Alignment::setAlignText($paragraph, $align);
+        Style::setAlignText($paragraph, $align);
 
         //check if text has break line
         if(Helper::stringContains($text, self::TEXT_BREAK)){
@@ -266,9 +265,7 @@ class PowerPoint extends \CApplicationComponent
                 $current_text = $shape->createTextRun($item);
 
                 //set style
-                $current_text->getFont()->setBold($bold);
-                $current_text->getFont()->setSize($size);
-                $current_text->getFont()->setColor( new Color($color) );
+                Style::setStyleText($current_text, $size, $bold, $color);
 
                 //add breakline
                 $shape->createBreak();
@@ -278,12 +275,11 @@ class PowerPoint extends \CApplicationComponent
             $current_text = $shape->createTextRun($text);
 
             //set style
-            $current_text->getFont()->setBold($bold);
-            $current_text->getFont()->setSize($size);
-            $current_text->getFont()->setColor( new Color($color) );
+            Style::setStyleText($current_text, $size, $bold, $color);
         }
     }
 
+    //TODO end this method for images
     /**
      * Create custom image into slide
      * @param array $params

@@ -9,18 +9,24 @@
 
 namespace AlejandroSosa\YiiPowerPoint\Common;
 
-use PhpOffice\PhpPresentation\Style\Color;
-use PhpOffice\PhpPresentation\Shape\RichText\Run;
-use PhpOffice\PhpPresentation\Style\Fill;
-use PhpOffice\PhpPresentation\Shape\Table\Cell;
 use PhpOffice\PhpPresentation\Slide;
 use PhpOffice\PhpPresentation\Slide\Background\Image;
+use PhpOffice\PhpPresentation\Style\Fill;
+use PhpOffice\PhpPresentation\Style\Color;
+use PhpOffice\PhpPresentation\Shape\RichText;
+use PhpOffice\PhpPresentation\Shape\RichText\Run;
+use PhpOffice\PhpPresentation\Shape\RichText\Paragraph;
+use PhpOffice\PhpPresentation\Style\Alignment;
+use PhpOffice\PhpPresentation\Shape\Table\Cell;
+
+use AlejandroSosa\YiiPowerPoint\PowerPoint;
+
 
 /**
  * Class Style
  * @package AlejandroSosa\YiiPowerPoint\Common
  */
-class Style
+class Style extends PowerPoint
 {
     /**
      * Set background of slide
@@ -52,6 +58,40 @@ class Style
         }
     }
 
+    /**
+     * Set align of text
+     * @param Paragraph $shape
+     * @param $align
+     */
+    public static function setAlignText(Paragraph $shape, $align)
+    {
+        if($shape instanceof Paragraph) {
+            $obj = $shape->getAlignment();
+
+            switch ($align){
+                //horizontal
+                case self::TEXT_ALIGN_HORIZONTAL_GENERAL: $obj->setHorizontal(Alignment::HORIZONTAL_GENERAL); break;
+                case self::TEXT_ALIGN_HORIZONTAL_CENTER: $obj->setHorizontal(Alignment::HORIZONTAL_CENTER); break;
+                case self::TEXT_ALIGN_HORIZONTAL_LEFT: $obj->setHorizontal(Alignment::HORIZONTAL_LEFT); break;
+                case self::TEXT_ALIGN_HORIZONTAL_RIGHT: $obj->setHorizontal(Alignment::HORIZONTAL_RIGHT); break;
+                case self::TEXT_ALIGN_HORIZONTAL_JUSTIFY: $obj->setHorizontal(Alignment::HORIZONTAL_JUSTIFY); break;
+                case self::TEXT_ALIGN_HORIZONTAL_DISTRIBUTED: $obj->setHorizontal(Alignment::HORIZONTAL_DISTRIBUTED); break;
+                //vertical
+                case self::TEXT_ALIGN_VERTICAL_AUTO: $obj->setVertical(Alignment::VERTICAL_AUTO); break;
+                case self::TEXT_ALIGN_VERTICAL_CENTER: $obj->setVertical(Alignment::VERTICAL_CENTER); break;
+                case self::TEXT_ALIGN_VERTICAL_TOP: $obj->setVertical(Alignment::VERTICAL_TOP); break;
+                case self::TEXT_ALIGN_VERTICAL_BOTTOM: $obj->setVertical(Alignment::VERTICAL_BOTTOM); break;
+                case self::TEXT_ALIGN_VERTICAL_BASE: $obj->setVertical(Alignment::VERTICAL_BASE); break;
+
+                default: $obj->setHorizontal(Alignment::HORIZONTAL_CENTER);
+            }
+
+            //set align margin
+            $obj->setMarginLeft(0);
+            $obj->setMarginRight(0);
+        }
+    }
+    
     /**
      * Set background of column
      * @param Cell $column
