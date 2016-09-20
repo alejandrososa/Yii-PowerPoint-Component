@@ -106,7 +106,10 @@ Now in your action
             Yii::app()->ppt->generate($options, $slides);
         }
        
-       
+OTHER EXAMPLES    
+--------------
+
+The other examples to create tables and graphs can be found in /samples
 
 WHAT'S NEXT
 -----------
