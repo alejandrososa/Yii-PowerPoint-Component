@@ -103,7 +103,7 @@ class Table
                     Style::setBackgroundColumn($current_column, $_bkg);
 
                     //set width
-                    Style::setWidthColumn($_width);
+                    Style::setWidthColumn($current_column, $_width);
                 } else {
                     //whe text not have options
                     //set style text
