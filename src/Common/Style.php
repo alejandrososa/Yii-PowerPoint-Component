@@ -91,7 +91,7 @@ class Style extends PowerPoint
             $obj->setMarginRight(0);
         }
     }
-    
+
     /**
      * Set background of column
      * @param Cell $column

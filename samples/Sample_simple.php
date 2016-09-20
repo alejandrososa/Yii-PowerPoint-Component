@@ -30,17 +30,20 @@ $slides = [
         'texts' => [
             [
                 'text'=>Yii::t('app', 'Delivery'),
-                'height'=>82, 'width'=>816,
-                'ox'=>72, 'oy'=>170,
-                'bold'=> true, 'size'=>44, 'color'=>'00000000',
-                'align'=>PowerPoint::TEXT_ALIGN_HORIZONTAL_CENTER,
+                'options'=>[
+                    'height'=>82, 'width'=>816, 'ox'=>72, 'oy'=>170,
+                    'bold'=> true, 'size'=>44, 'color'=>'00000000',
+                    'align'=>PowerPoint::TEXT_ALIGN_HORIZONTAL_CENTER,
+                ],
             ],
             [
                 'text'=>Yii::t('app', 'State Budget 2016'),
-                'height'=>82, 'width'=>816,
-                'ox'=>72, 'oy'=>291,
-                'bold'=> false, 'size'=>40, 'color'=>'00000000',
-                'align'=>PowerPoint::TEXT_ALIGN_HORIZONTAL_CENTER,
+                'options'=>[
+                    'height'=>82, 'width'=>816,
+                    'ox'=>72, 'oy'=>291,
+                    'bold'=> false, 'size'=>40, 'color'=>'00000000',
+                    'align'=>PowerPoint::TEXT_ALIGN_HORIZONTAL_CENTER,
+                ],
             ],
         ]
     ]

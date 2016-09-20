@@ -87,17 +87,19 @@ Now in your action
                     'texts' => [
                         [
                             'text'=>Yii::t('app', 'Delivery'),
-                            'height'=>143, 'width'=>793,
-                            'ox'=>120, 'oy'=>180,
-                            'bold'=> true, 'size'=>44, 'color'=>'00000000',
-                            'align'=>PowerPoint::TEXT_ALIGN_HORIZONTAL_CENTER,
+                            'options'=>[
+                                'height'=>143, 'width'=>793, 'ox'=>120, 'oy'=>180,
+                                'bold'=> true, 'size'=>44, 'color'=>'00000000',
+                                'align'=>PowerPoint::TEXT_ALIGN_HORIZONTAL_CENTER,
+                            ],
                         ],
                         [
                             'text'=>Yii::t('app', 'State Budget 2016'),
-                            'height'=>143, 'width'=>793,
-                            'ox'=>170, 'oy'=>240,
-                            'bold'=> false, 'size'=>40, 'color'=>'00000000',
-                            'align'=>PowerPoint::TEXT_ALIGN_HORIZONTAL_CENTER,
+                            'options'=>[
+                                'height'=>143, 'width'=>793, 'ox'=>170, 'oy'=>240,
+                                'bold'=> false, 'size'=>40, 'color'=>'00000000',
+                                'align'=>PowerPoint::TEXT_ALIGN_HORIZONTAL_CENTER,
+                            ],
                         ],
                     ]
                 ]

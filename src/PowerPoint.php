@@ -11,6 +11,7 @@
 
 namespace AlejandroSosa\YiiPowerPoint;
 
+use AlejandroSosa\YiiPowerPoint\Common\Charts;
 use PhpOffice\PhpPresentation\PhpPresentation;
 use PhpOffice\PhpPresentation\IOFactory;
 use PhpOffice\PhpPresentation\Style\Color;
@@ -22,6 +23,7 @@ use PhpOffice\PhpPresentation\Style\Fill;
 use AlejandroSosa\YiiPowerPoint\Common\Helper;
 use AlejandroSosa\YiiPowerPoint\Common\Table;
 use AlejandroSosa\YiiPowerPoint\Common\Style;
+
 
 /**
  * Class PowerPoint
@@ -238,15 +240,16 @@ class PowerPoint extends \CApplicationComponent
      */
     private function createText($params = [])
     {
-        $height     = Helper::hasArrayProperty('height', $params) ? $params['height'] : self::TEXT_HEIGHT;
-        $width      = Helper::hasArrayProperty('width', $params) ? $params['width'] : self::TEXT_WIDTH;
-        $offset_x   = Helper::hasArrayProperty('ox', $params) ? $params['ox'] : self::TEXT_OFFSET_X;
-        $offset_y   = Helper::hasArrayProperty('oy', $params) ? $params['oy'] : self::TEXT_OFFSET_Y;
-        $align      = Helper::hasArrayProperty('align', $params) ? $params['align'] : self::TEXT_ALIGN_HORIZONTAL_CENTER;
         $text       = Helper::hasArrayProperty('text', $params) ? $params['text'] : '';
-        $bold       = Helper::hasArrayProperty('bold', $params) ? $params['bold'] : false;
-        $color      = Helper::hasArrayProperty('color', $params) ? $params['color'] : self::DEFAULT_COLOR;
-        $size       = Helper::hasArrayProperty('size', $params) ? $params['size'] : self::TEXT_SIZE;
+        $options    = Helper::hasArrayProperty('options', $params) ? $params['options'] : [];
+        $height     = Helper::hasArrayProperty('height', $options) ? $options['height'] : self::TEXT_HEIGHT;
+        $width      = Helper::hasArrayProperty('width', $options) ? $options['width'] : self::TEXT_WIDTH;
+        $offset_x   = Helper::hasArrayProperty('ox', $options) ? $options['ox'] : self::TEXT_OFFSET_X;
+        $offset_y   = Helper::hasArrayProperty('oy', $options) ? $options['oy'] : self::TEXT_OFFSET_Y;
+        $align      = Helper::hasArrayProperty('align', $options) ? $options['align'] : self::TEXT_ALIGN_HORIZONTAL_CENTER;
+        $bold       = Helper::hasArrayProperty('bold', $options) ? $options['bold'] : false;
+        $color      = Helper::hasArrayProperty('color', $options) ? $options['color'] : self::DEFAULT_COLOR;
+        $size       = Helper::hasArrayProperty('size', $options) ? $options['size'] : self::TEXT_SIZE;
 
         $current_slide = $this->_presentation->getActiveSlide();
         $shape = $current_slide->createRichTextShape();
@@ -330,10 +333,10 @@ class PowerPoint extends \CApplicationComponent
         $col_total  = count($header_columns) > 0 ? count($header_columns) : 0;
 
         //get current slide
-        $currentSlide = $this->_presentation->getActiveSlide();
+        $current_slide = $this->_presentation->getActiveSlide();
 
         //create a table shape
-        $shape = Table::createTable($currentSlide, $col_total, $height, $width, $offset_x, $offset_y);
+        $shape = Table::createTable($current_slide, $col_total, $height, $width, $offset_x, $offset_y);
 
         //add row header
         Table::createRow($shape, $header_columns, $header_text_size, $header_text_bold, $header_text_color,
@@ -345,6 +348,22 @@ class PowerPoint extends \CApplicationComponent
             $style = $row['style'];
             Table::createRow($shape, $texts, $style['size'], $style['bold'], $style['color'], $style['align'], $style['background']);
         }
+    }
+
+    /**
+     * Create custom chart pie 3D
+     * @param array $params
+     */
+    private function createPie3D($params = []){
+        $title       = Helper::hasArrayProperty('title', $params) ? $params['title'] : '';
+        $series_data = Helper::hasArrayProperty('series', $params) ? $params['series'] : [];
+        $options     = Helper::hasArrayProperty('options', $params) ? $params['options'] : [];
+
+        //get current slide
+        $current_slide = $this->_presentation->getActiveSlide();
+
+        //generate chart
+        Charts::createPie3D($current_slide, $title, $series_data, $options);
     }
 
     //ASSESORS
@@ -395,6 +414,17 @@ class PowerPoint extends \CApplicationComponent
                     }
                 } else {
                     $this->createTable($slide['tables']);
+                }
+            }
+
+            //add pie 3D
+            if(Helper::hasArrayProperty('pie3D', $slide)) {
+                if (Helper::isMultiArray($slide['pie3D'])) {
+                    foreach ($slide['pie3D'] as $item) {
+                        $this->createPie3D($item);
+                    }
+                } else {
+                    $this->createPie3D($slide['pie3D']);
                 }
             }
         }

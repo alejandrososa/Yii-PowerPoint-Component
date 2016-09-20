@@ -30,21 +30,27 @@ $slides = [
         'texts' => [
             [
                 'text'=>Yii::t('app', 'Delivery'),
-                'height'=>38, 'width'=>360, 'ox'=>345, 'oy'=>34,
-                'bold'=> true, 'size'=>18, 'color'=>'FF2196F3',
-                'align'=>PowerPoint::TEXT_ALIGN_VERTICAL_CENTER,
+                'options'=>[
+                    'height'=>38, 'width'=>360, 'ox'=>345, 'oy'=>34,
+                    'bold'=> true, 'size'=>18, 'color'=>'FF2196F3',
+                    'align'=>PowerPoint::TEXT_ALIGN_VERTICAL_CENTER,
+                ]
             ],
             [
                 'text'=>Yii::t('app', 'Abril/2016'),
-                'height'=>38, 'width'=>132, 'ox'=>816, 'oy'=>52,
-                'bold'=> true, 'size'=>18, 'color'=>'FF2196F3',
-                'align'=>PowerPoint::TEXT_ALIGN_VERTICAL_CENTER,
+                'options'=>[
+                    'height'=>38, 'width'=>132, 'ox'=>816, 'oy'=>52,
+                    'bold'=> true, 'size'=>18, 'color'=>'FF2196F3',
+                    'align'=>PowerPoint::TEXT_ALIGN_VERTICAL_CENTER,
+                ]
             ],
             [
                 'text'=>Yii::t('app', 'State Budget 2016'),
-                'height'=>38, 'width'=>403, 'ox'=>326, 'oy'=>73,
-                'bold'=> true, 'size'=>18, 'color'=>'FF2196F3',
-                'align'=>PowerPoint::TEXT_ALIGN_VERTICAL_CENTER,
+                'options'=>[
+                    'height'=>38, 'width'=>403, 'ox'=>326, 'oy'=>73,
+                    'bold'=> true, 'size'=>18, 'color'=>'FF2196F3',
+                    'align'=>PowerPoint::TEXT_ALIGN_VERTICAL_CENTER,
+                ]
             ],
         ],
         'tables' => [
