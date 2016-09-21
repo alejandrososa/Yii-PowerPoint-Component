@@ -8,13 +8,20 @@
  */
 
 namespace AlejandroSosa\YiiPowerPoint\Common;
+use PhpOffice\PhpPresentation\Slide;
 
 /**
- * Class Image
+ * Class Images
  * @package AlejandroSosa\YiiPowerPoint\Common
  */
-class Image
+class Images extends AbstractObject
 {
+
+    public function create(Slide $slide, $options = [])
+    {
+        // TODO: Implement create() method.
+    }
+
     /**
      * Check if image base64
      * @param $base64 string

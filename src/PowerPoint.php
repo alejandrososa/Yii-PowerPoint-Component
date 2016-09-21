@@ -21,7 +21,7 @@ use PhpOffice\PhpPresentation\Shape\RichText;
 use PhpOffice\PhpPresentation\Style\Border;
 use PhpOffice\PhpPresentation\Style\Fill;
 use AlejandroSosa\YiiPowerPoint\Common\Helper;
-use AlejandroSosa\YiiPowerPoint\Common\Table;
+use AlejandroSosa\YiiPowerPoint\Common\Tables;
 use AlejandroSosa\YiiPowerPoint\Common\Style;
 
 
@@ -336,17 +336,17 @@ class PowerPoint extends \CApplicationComponent
         $current_slide = $this->_presentation->getActiveSlide();
 
         //create a table shape
-        $shape = Table::createTable($current_slide, $col_total, $height, $width, $offset_x, $offset_y);
+        $shape = Tables::createTable($current_slide, $col_total, $height, $width, $offset_x, $offset_y);
 
         //add row header
-        Table::createRow($shape, $header_columns, $header_text_size, $header_text_bold, $header_text_color,
+        Tables::createRow($shape, $header_columns, $header_text_size, $header_text_bold, $header_text_color,
             $header_text_align, $header_background, $header_width, $header_height);
 
         //add the remaining rows
         foreach ($rows as $row) {
             $texts = $row['columns'];
             $style = $row['style'];
-            Table::createRow($shape, $texts, $style['size'], $style['bold'], $style['color'], $style['align'], $style['background']);
+            Tables::createRow($shape, $texts, $style['size'], $style['bold'], $style['color'], $style['align'], $style['background']);
         }
     }
 

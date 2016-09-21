@@ -15,22 +15,26 @@ use PhpOffice\PhpPresentation\Style\Color;
 use PhpOffice\PhpPresentation\Shape\Chart\Type\Pie3D;
 use PhpOffice\PhpPresentation\Shape\Chart\Series;
 use PhpOffice\PhpPresentation\Style\Shadow;
-
 use PhpOffice\PhpPresentation\Style\Border;
-
 use AlejandroSosa\YiiPowerPoint\Common\Helper;
 
 /**
  * Class Charts
  * @package AlejandroSosa\YiiPowerPoint\Common
  */
-class Charts
+class Charts extends AbstractObject
 {
     const PIE_HEIGHT        = 234;
     const PIE_WIDTH         = 450;
     const PIE_OFFSET_X      = 41;
     const PIE_OFFSET_Y      = 18;
     const PIE_BACKGROUND    = 'FFFFFFFF';
+
+    
+    public function create(Slide $slide, $options = [])
+    {
+        // TODO: Implement create() method.
+    }
 
     /**
      * Create chart Pie 3D

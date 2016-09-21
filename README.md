@@ -100,7 +100,7 @@ Now in your action
                                 'bold'=> false, 'size'=>40, 'color'=>'00000000',
                                 'align'=>PowerPoint::TEXT_ALIGN_HORIZONTAL_CENTER,
                             ],
-                        ],
+                        ] 
                     ]
                 ]
             ];

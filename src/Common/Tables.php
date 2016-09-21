@@ -23,8 +23,14 @@ use AlejandroSosa\YiiPowerPoint\Common\Style;
  * Class Table
  * @package AlejandroSosa\YiiPowerPoint\Common
  */
-class Table
+class Tables extends AbstractObject
 {
+    
+    public function create(Slide $slide, $options = [])
+    {
+        // TODO: Implement create() method.
+    }
+
     /**
      * Create table
      * @param Slide $slide
