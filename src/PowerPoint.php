@@ -11,7 +11,6 @@
 
 namespace AlejandroSosa\YiiPowerPoint;
 
-use AlejandroSosa\YiiPowerPoint\Common\Charts;
 use PhpOffice\PhpPresentation\PhpPresentation;
 use PhpOffice\PhpPresentation\IOFactory;
 use PhpOffice\PhpPresentation\Style\Color;
@@ -20,6 +19,9 @@ use PhpOffice\PhpPresentation\Slide\Background\Image;
 use PhpOffice\PhpPresentation\Shape\RichText;
 use PhpOffice\PhpPresentation\Style\Border;
 use PhpOffice\PhpPresentation\Style\Fill;
+
+use AlejandroSosa\YiiPowerPoint\ObjectsPptFactory;
+use AlejandroSosa\YiiPowerPoint\Common\Charts;
 use AlejandroSosa\YiiPowerPoint\Common\Helper;
 use AlejandroSosa\YiiPowerPoint\Common\Tables;
 use AlejandroSosa\YiiPowerPoint\Common\Style;
@@ -381,8 +383,18 @@ class PowerPoint extends \CApplicationComponent
             $this->_presentation->createSlide();
             $this->_presentation->setActiveSlideIndex($index);
 
+            //get current slide
+            $current_slide = $this->_presentation->getActiveSlide();
             //set layout
             $this->assignBackground();
+
+            $demo = [];
+            foreach ($slide as $key => $item) {
+                $obj = ObjectsPptFactory::build($current_slide, $item);
+                $demo[$key] = $obj;
+            }
+
+            echo '<pre>';print_r([__LINE__, __METHOD__,'',$demo]);die();
 
             //add text
             if(Helper::hasArrayProperty('texts', $slide)){

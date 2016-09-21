@@ -9,39 +9,41 @@
 
 namespace AlejandroSosa\YiiPowerPoint;
 
+use PhpOffice\PhpPresentation\Slide;
 use AlejandroSosa\YiiPowerPoint\Common\Charts;
 use AlejandroSosa\YiiPowerPoint\Common\Images;
 use AlejandroSosa\YiiPowerPoint\Common\Tables;
 use AlejandroSosa\YiiPowerPoint\Common\Texts;
 
 /**
- * Class ObjectFactory
+ * Class ObjectsPptFactory
  * @package AlejandroSosa\YiiPowerPoint
  */
-class ObjectFactory extends AbstractFactory
+class ObjectsPptFactory extends AbstractFactory
 {
     /**
-     * Build object
-     * @param array $slide
-     * @return Charts|Images|Tables|Texts|null
+     * Create objects dynamically to add a slide
+     * @param Slide $slide
+     * @param array $options
+     * @return mixed
      */
-    public function build($slide = [])
+    public static function build(Slide $slide, $options = [])
     {
-        $object = NULL;
+        $obj = NULL;
         switch ($slide) {
             case "texts":
-                $object = new Texts();
+                $obj = Texts::create($slide, $options);
                 break;
             case "images":
-                $object = new Images();
+                $obj = Images::create($slide, $options);
                 break;
             case "tables":
-                $object = new Tables();
+                $obj = Tables::create($slide, $options);
                 break;
             case "charts":
-                $object = new Charts();
+                $obj = Charts::create($slide, $options);
                 break;
         }
-        return $object;
+        return $obj;
     }
 }

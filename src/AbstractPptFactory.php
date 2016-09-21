@@ -4,23 +4,23 @@
  * Copyright (c) html 2016.
  * Autor: Franklyn Alejandro Sosa Pérez <alesjohnson@hotmail.com>
  * Fecha: 21/09/2016
- * Hora: 10:43
+ * Hora: 10:30
  */
 
-namespace AlejandroSosa\YiiPowerPoint\Common;
+namespace AlejandroSosa\YiiPowerPoint;
 use PhpOffice\PhpPresentation\Slide;
 
 /**
- * Class AbstractObject
+ * Class AbstractPptFactory
  * @package AlejandroSosa\YiiPowerPoint
  */
-abstract class AbstractObject
+abstract class AbstractPptFactory
 {
     /**
-     * Create custom object
+     * Create objects dynamically to add a slide
      * @param Slide $slide
      * @param array $options
      * @return mixed
      */
-    abstract public static function create(Slide $slide, $options = []);
+    abstract public static function build(Slide $slide, $options = []);
 }

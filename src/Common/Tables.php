@@ -25,10 +25,15 @@ use AlejandroSosa\YiiPowerPoint\Common\Style;
  */
 class Tables extends AbstractObject
 {
-    
-    public function create(Slide $slide, $options = [])
+    /**
+     * @param Slide $slide
+     * @param array $options
+     * @return mixed
+     */
+    public static function create(Slide $slide, $options = [])
     {
         // TODO: Implement create() method.
+        return 'hola desde tables';
     }
 
     /**

@@ -30,10 +30,15 @@ class Charts extends AbstractObject
     const PIE_OFFSET_Y      = 18;
     const PIE_BACKGROUND    = 'FFFFFFFF';
 
-    
-    public function create(Slide $slide, $options = [])
+    /**
+     * @param Slide $slide
+     * @param array $options
+     * @return mixed
+     */
+    public static function create(Slide $slide, $options = [])
     {
         // TODO: Implement create() method.
+        return 'hola desde charts';
     }
 
     /**
