@@ -11,7 +11,6 @@
 
 namespace AlejandroSosa\YiiPowerPoint;
 
-use AlejandroSosa\YiiPowerPoint\Common\ConstantesPPT;
 use PhpOffice\PhpPresentation\PhpPresentation;
 use PhpOffice\PhpPresentation\IOFactory;
 use PhpOffice\PhpPresentation\Style\Color;
@@ -21,10 +20,9 @@ use PhpOffice\PhpPresentation\Shape\RichText;
 use PhpOffice\PhpPresentation\Style\Border;
 use PhpOffice\PhpPresentation\Style\Fill;
 
+use AlejandroSosa\YiiPowerPoint\Common\ConstantesPPT;
 use AlejandroSosa\YiiPowerPoint\ObjectsPptFactory;
-use AlejandroSosa\YiiPowerPoint\Common\Charts;
 use AlejandroSosa\YiiPowerPoint\Common\Helper;
-use AlejandroSosa\YiiPowerPoint\Common\Tables;
 use AlejandroSosa\YiiPowerPoint\Common\Style;
 
 
@@ -55,7 +53,7 @@ class PowerPoint extends \CApplicationComponent implements ConstantesPPT
      * @var Drawing
      */
     private $_shape;
-    
+
 
     /**
      * PowerPoint constructor.
@@ -116,7 +114,7 @@ class PowerPoint extends \CApplicationComponent implements ConstantesPPT
      * Save file PPT
      * The file is saved into runtime/ppt
      */
-    public function saveFile()
+    private function saveFile()
     {
         if(!empty($this->_presentation)) {
             $path = $this->_pathDir .'/'. $this->_fileName .'.'. $this->_fileExtension;
@@ -204,19 +202,8 @@ class PowerPoint extends \CApplicationComponent implements ConstantesPPT
         return $slide;
     }
 
-    //OBJECTS TEXT, IMAGES, ETC
-
-
-
-    //TODO end this method for images
-
-
-
-
-    //ASSESORS
-
     /**
-     * Create custom slide with texts, images and tables
+     * Create custom slide with texts, images, tables and charts
      */
     private function createCustomSlides()
     {
@@ -230,53 +217,14 @@ class PowerPoint extends \CApplicationComponent implements ConstantesPPT
 
             //get current slide
             $current_slide = $this->_presentation->getActiveSlide();
+
             //set layout
             $this->assignBackground();
 
-//            $demo = [];
+            //create and add objects to current slide
             foreach ($slide as $tipo => $options) {
-//                $obj =
                 ObjectsPptFactory::build($tipo, $current_slide, $options);
-//                $demo[$tipo] = $obj;
             }
-
-//            echo '<pre>';print_r([__LINE__, __METHOD__,'',$demo]);die();
-
-            //add text
-
-
-            //add image
-//            if(Helper::hasArrayProperty('images', $slide)) {
-//                if (Helper::isMultiArray($slide['images'])) {
-//                    foreach ($slide['images'] as $item) {
-//                        $this->createImage($item);
-//                    }
-//                } else {
-//                    $this->createImage($slide['images']);
-//                }
-//            }
-//
-//            //add table
-//            if(Helper::hasArrayProperty('tables', $slide)) {
-//                if (Helper::isMultiArray($slide['tables'])) {
-//                    foreach ($slide['tables'] as $item) {
-//                        $this->createTable($item);
-//                    }
-//                } else {
-//                    $this->createTable($slide['tables']);
-//                }
-//            }
-//
-//            //add pie 3D
-//            if(Helper::hasArrayProperty('pie3D', $slide)) {
-//                if (Helper::isMultiArray($slide['pie3D'])) {
-//                    foreach ($slide['pie3D'] as $item) {
-//                        $this->createPie3D($item);
-//                    }
-//                } else {
-//                    $this->createPie3D($slide['pie3D']);
-//                }
-//            }
         }
     }
 }

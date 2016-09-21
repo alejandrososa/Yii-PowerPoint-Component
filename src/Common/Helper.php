@@ -27,6 +27,23 @@ class Helper
     }
 
     /**
+     * Check if array is multidimensional
+     * @param $arr
+     * @return bool
+     */
+    public static function isArrayMultidimensional( $arr ) {
+        if (!is_array($arr)) {
+            return false;
+        }
+        foreach ($arr as $elm) {
+            if (!is_array($elm)){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
      * Check if attribute options has property
      * @param string $property
      * @param array $array

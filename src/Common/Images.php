@@ -24,7 +24,14 @@ class Images extends AbstractObject
      */
     public static function create(Slide $slide, $options = [])
     {
-        // TODO: Implement create() method.
+        //check if options is only one or multiple
+        if (Helper::isArrayMultidimensional($options)) {
+            foreach ($options as $item) {
+//                self::createCustomImage($slide, $item);
+            }
+        } else {
+//            self::createCustomImage($slide, $options);
+        }
     }
 
     /**

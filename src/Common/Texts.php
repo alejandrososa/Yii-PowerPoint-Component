@@ -27,7 +27,14 @@ class Texts extends AbstractObject
      */
     public static function create(Slide $slide, $options = [])
     {
-        self::createCustomText($slide, $options);
+        //check if options is only one or multiple
+        if (Helper::isArrayMultidimensional($options)) {
+            foreach ($options as $item) {
+                self::createCustomText($slide, $item);
+            }
+        } else {
+            self::createCustomText($slide, $options);
+        }
     }
 
     /**

@@ -33,16 +33,16 @@ class ObjectsPptFactory extends AbstractPptFactory
     {
         $obj = NULL;
         switch ($type) {
-            case "texts":
+            case self::TYPE_TEXT:
                 $obj = Texts::create($slide, $options);
                 break;
-            case "images":
+            case self::TYPE_IMAGE:
                 $obj = Images::create($slide, $options);
                 break;
-            case "tables":
+            case self::TYPE_TABLE:
                 $obj = Tables::create($slide, $options);
                 break;
-            case "charts":
+            case self::TYPE_CHART:
                 $obj = Charts::create($slide, $options);
                 break;
         }

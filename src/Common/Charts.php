@@ -24,11 +24,6 @@ use AlejandroSosa\YiiPowerPoint\Common\Helper;
  */
 class Charts extends AbstractObject
 {
-    const PIE_HEIGHT        = 234;
-    const PIE_WIDTH         = 450;
-    const PIE_OFFSET_X      = 41;
-    const PIE_OFFSET_Y      = 18;
-    const PIE_BACKGROUND    = 'FFFFFFFF';
 
     /**
      * @param Slide $slide
@@ -37,7 +32,36 @@ class Charts extends AbstractObject
      */
     public static function create(Slide $slide, $options = [])
     {
-        // TODO: Implement create() method.
+        //check if options is only one or multiple
+        if (Helper::isArrayMultidimensional($options)) {
+            foreach ($options as $item) {
+                self::createCustomChart($slide, $item);
+            }
+        } else {
+            self::createCustomChart($slide, $options);
+        }
+    }
+
+    private function createCustomChart(Slide $slide, $options = [])
+    {
+        $type = Helper::hasArrayProperty('', $options) ? $options['type'] : '';
+        echo '<pre>';print_r([__LINE__, __METHOD__,'',$type, $options]);die();
+//        switch ($type) {
+//            case "texts":
+//                $obj = Texts::create($slide, $options);
+//                break;
+//            case "images":
+//                $obj = Images::create($slide, $options);
+//                break;
+//            case "tables":
+//                $obj = Tables::create($slide, $options);
+//                break;
+//            case "charts":
+//                $obj = Charts::create($slide, $options);
+//                break;
+//            default:
+//                throw new \CException('Invalid product type given.');
+//        }
     }
 
     /**
@@ -47,7 +71,7 @@ class Charts extends AbstractObject
      * @param array $series_data
      * @param array $options
      */
-    public static function createPie3D(Slide $slide, $title = '', $series_data = [], $options = [])
+    private function makePie3D(Slide $slide, $title = '', $series_data = [], $options = [])
     {
         $height         = Helper::hasArrayProperty('height', $options) ? $options['height'] : self::PIE_HEIGHT;
         $width          = Helper::hasArrayProperty('width', $options) ? $options['width'] : self::PIE_WIDTH;

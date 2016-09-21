@@ -21,7 +21,7 @@ interface ConstantesPPT
     const PPT_SUBJECT                           = 'Sample Subject';
     const PPT_DESCRIPTION                       = 'Sample Description';
 
-    /* Alignment styles */
+    /* Alignment styles of Text */
     const TEXT_ALIGN_HORIZONTAL_GENERAL         = 'l';
     const TEXT_ALIGN_HORIZONTAL_LEFT            = 'l';
     const TEXT_ALIGN_HORIZONTAL_RIGHT           = 'r';
@@ -39,6 +39,46 @@ interface ConstantesPPT
     const TEXT_OFFSET_Y                         = 180;
     const TEXT_SIZE                             = 14;
     const TEXT_BREAK                            = '<br>';
+
+    /* Chart Types */
+    const CHART_HEIGHT                          = 234;
+    const CHART_WIDTH                           = 450;
+    const CHART_OFFSET_X                        = 41;
+    const CHART_OFFSET_Y                        = 18;
+    const CHART_TYPE_AREA                       = 'area';
+    const CHART_TYPE_BAR                        = 'bar';
+    const CHART_TYPE_BAR3D                      = 'bar3D';
+    const CHART_TYPE_LINE                       = 'line';
+    const CHART_TYPE_PIE                        = 'pie';
+    const CHART_TYPE_PIE3D                      = 'pie3D';
+    const CHART_TYPE_SCATTER                    = 'scatter';
+
+    /* Colors */
+    const COLOR_BLACK                           = 'FF000000';
+    const COLOR_WHITE                           = 'FFFFFFFF';
+    const COLOR_RED                             = 'FFF44336';
+    const COLOR_PINK                            = 'FFE91E63';
+    const COLOR_PURPLE                          = 'FF9C27B0';
+    const COLOR_DEEP_PURPLE                     = 'FF673AB7';
+    const COLOR_INDIGO                          = 'FF3F51B5';
+    const COLOR_BLUE                            = 'FF2196F3';
+    const COLOR_LIGHT_BLUE                      = 'FF03A9F4';
+    const COLOR_CYAN                            = 'FF00BCD4';
+    const COLOR_TEAL                            = 'FF009688';
+    const COLOR_GREEN                           = 'FF4CAF50';
+    const COLOR_LIGHT_GREEN                     = 'FF8BC34A';
+    const COLOR_LIME                            = 'FFCDDC39';
+    const COLOR_YELLOW                          = 'FFFFEB3B';
+    const COLOR_AMBER                           = 'FFFFC107';
+    const COLOR_ORANGE                          = 'FFFF9800';
+    const COLOR_DEEP_ORANGE                     = 'FFFF5722';
+    const COLOR_GREY                            = 'FF9E9E9E';
+    const COLOR_BLUE_GREY                       = 'FF607D8B';
+    const COLOR_LIGHT_GREY                      = 'FFCFD8DC';
+    const COLOR_DIVIDER                         = 'FFBDBDBD';
+    const COLOR_PRIMARY_TEXT                    = 'FF212121';
+    const COLOR_SECONDARY_TEXT                  = 'FF757575';
+
 
     const DEFAULT_COLOR                         = '00000000';
 

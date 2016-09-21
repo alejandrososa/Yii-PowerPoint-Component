@@ -33,9 +33,15 @@ class Tables extends AbstractObject
      */
     public static function create(Slide $slide, $options = [])
     {
-        self::createCustomTable($slide, $options);
+        //check if options is only one or multiple
+        if (Helper::isArrayMultidimensional($options)) {
+            foreach ($options as $item) {
+                self::createCustomTable($slide, $item);
+            }
+        } else {
+            self::createCustomTable($slide, $options);
+        }
     }
-
 
     /**
      * Create custom table into slide
@@ -69,17 +75,17 @@ class Tables extends AbstractObject
         $current_slide = $slide;
 
         //create a table shape
-        $shape = $this->makeTable($current_slide, $col_total, $height, $width, $offset_x, $offset_y);
+        $shape = self::makeTable($current_slide, $col_total, $height, $width, $offset_x, $offset_y);
 
         //add row header
-        $this->makeRow($shape, $header_columns, $header_text_size, $header_text_bold, $header_text_color,
+        self::makeRow($shape, $header_columns, $header_text_size, $header_text_bold, $header_text_color,
             $header_text_align, $header_background, $header_width, $header_height);
 
         //add the remaining rows
         foreach ($rows as $row) {
             $texts = $row['columns'];
             $style = $row['style'];
-            $this->makeRow($shape, $texts, $style['size'], $style['bold'], $style['color'], $style['align'], $style['background']);
+            self::makeRow($shape, $texts, $style['size'], $style['bold'], $style['color'], $style['align'], $style['background']);
         }
     }
 
