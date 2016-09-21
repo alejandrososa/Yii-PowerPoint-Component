@@ -16,9 +16,7 @@
     "autoload": {
         "classmap": [
             "src/Common/",
-            "src/AbstractPptFactory.php",
-            "src/ObjectsPptFactory.php",
-            "src/PowerPoint.php"
+            "src/"
         ]
     }
 }

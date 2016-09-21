@@ -9,7 +9,7 @@
 
 namespace AlejandroSosa\YiiPowerPoint\Common;
 use PhpOffice\PhpPresentation\Slide;
-
+use PhpOffice\PhpPresentation\Shape\Drawing;
 /**
  * Class Images
  * @package AlejandroSosa\YiiPowerPoint\Common
@@ -17,6 +17,7 @@ use PhpOffice\PhpPresentation\Slide;
 class Images extends AbstractObject
 {
     /**
+     * Create custom object
      * @param Slide $slide
      * @param array $options
      * @return mixed
@@ -24,7 +25,28 @@ class Images extends AbstractObject
     public static function create(Slide $slide, $options = [])
     {
         // TODO: Implement create() method.
-        return 'hola desde images';
+    }
+
+    /**
+     * Create custom image into slide
+     * @param array $params
+     */
+    private function createCustomImage(Slide $slide, $params = [])
+    {
+        $height     = Helper::hasArrayProperty('height', $params) ? $params['height'] : self::TEXT_HEIGHT;
+        $width      = Helper::hasArrayProperty('width', $params) ? $params['width'] : self::TEXT_WIDTH;
+        $offset_x   = Helper::hasArrayProperty('ox', $params) ? $params['ox'] : self::TEXT_OFFSET_X;
+        $offset_y   = Helper::hasArrayProperty('oy', $params) ? $params['oy'] : self::TEXT_OFFSET_Y;
+        $name       = Helper::hasArrayProperty('name', $params) ? $params['name'] : '';
+        $description= Helper::hasArrayProperty('decription', $params) ? $params['name'] : '';
+
+//        if()
+
+        $current_slide = $slide;
+//        $shape = $current_slide->createRichTextShape();
+
+        $shape = new Drawing\File();
+        $shape->setName($name)->setDescription($description);
     }
 
     /**
@@ -50,5 +72,4 @@ class Images extends AbstractObject
 
         return $result;
     }
-
 }

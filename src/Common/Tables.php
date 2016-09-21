@@ -26,14 +26,61 @@ use AlejandroSosa\YiiPowerPoint\Common\Style;
 class Tables extends AbstractObject
 {
     /**
+     * Create custom object
      * @param Slide $slide
      * @param array $options
      * @return mixed
      */
     public static function create(Slide $slide, $options = [])
     {
-        // TODO: Implement create() method.
-        return 'hola desde tables';
+        self::createCustomTable($slide, $options);
+    }
+
+
+    /**
+     * Create custom table into slide
+     * @param Slide $slide
+     * @param array $params
+     */
+    private function createCustomTable(Slide $slide, $params = [])
+    {
+        //table
+        $height     = Helper::hasArrayProperty('height', $params) ? $params['height'] : self::TEXT_HEIGHT;
+        $width      = Helper::hasArrayProperty('width', $params) ? $params['width'] : self::TEXT_WIDTH;
+        $offset_x   = Helper::hasArrayProperty('ox', $params) ? $params['ox'] : self::TEXT_OFFSET_X;
+        $offset_y   = Helper::hasArrayProperty('oy', $params) ? $params['oy'] : self::TEXT_OFFSET_Y;
+        $row_header = Helper::hasArrayProperty('header', $params) ? $params['header'] : [];
+        $rows       = Helper::hasArrayProperty('rows', $params) ? $params['rows'] : [];
+
+        //header
+        $header_columns     = Helper::hasArrayProperty('columns', $row_header) ? $row_header['columns'] : [];
+        $header_style       = Helper::hasArrayProperty('style', $row_header) ? $row_header['style'] : [];
+        $header_background  = Helper::hasArrayProperty('background', $header_style) ? $header_style['background'] : 'FFFFFFFF';
+        $header_text_bold   = Helper::hasArrayProperty('bold', $header_style) ? $header_style['bold'] : false;
+        $header_text_size   = Helper::hasArrayProperty('size', $header_style) ? $header_style['size'] : self::TEXT_SIZE;
+        $header_text_color  = Helper::hasArrayProperty('color', $header_style) ? $header_style['color'] : self::DEFAULT_COLOR;
+        $header_text_align  = Helper::hasArrayProperty('align', $header_style) ? $header_style['align'] : self::TEXT_ALIGN_HORIZONTAL_CENTER;
+        $header_width       = Helper::hasArrayProperty('width', $header_style) ? $header_style['width'] : 100;
+        $header_height      = Helper::hasArrayProperty('height', $header_style) ? $header_style['height'] : 20;
+
+        $col_total  = count($header_columns) > 0 ? count($header_columns) : 0;
+
+        //get current slide
+        $current_slide = $slide;
+
+        //create a table shape
+        $shape = $this->makeTable($current_slide, $col_total, $height, $width, $offset_x, $offset_y);
+
+        //add row header
+        $this->makeRow($shape, $header_columns, $header_text_size, $header_text_bold, $header_text_color,
+            $header_text_align, $header_background, $header_width, $header_height);
+
+        //add the remaining rows
+        foreach ($rows as $row) {
+            $texts = $row['columns'];
+            $style = $row['style'];
+            $this->makeRow($shape, $texts, $style['size'], $style['bold'], $style['color'], $style['align'], $style['background']);
+        }
     }
 
     /**
@@ -46,7 +93,7 @@ class Tables extends AbstractObject
      * @param $offset_y
      * @return TBL
      */
-    public static function createTable(Slide $slide, $col_total, $height, $width, $offset_x, $offset_y)
+    private function makeTable(Slide $slide, $col_total, $height, $width, $offset_x, $offset_y)
     {
         if($slide instanceof Slide) {
             $shape = $slide->createTableShape($col_total);
@@ -70,8 +117,8 @@ class Tables extends AbstractObject
      * @param int $width
      * @param int $height
      */
-    public static function createRow(TBL $table, $texts = [], $size = 10, $bold = false, $color = 'FF000000',
-                                     $align, $background = 'FFFFFFFF', $width = 100, $height = 20){
+    private function makeRow(TBL $table, $texts = [], $size = 10, $bold = false, $color = 'FF000000',
+                             $align, $background = 'FFFFFFFF', $width = 100, $height = 20){
 
         $align = !empty($align) ? $align : Alignment::TEXT_ALIGN_HORIZONTAL_CENTER;
 
@@ -128,4 +175,6 @@ class Tables extends AbstractObject
             }
         }
     }
+
+
 }

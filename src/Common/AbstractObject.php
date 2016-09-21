@@ -14,7 +14,7 @@ use PhpOffice\PhpPresentation\Slide;
  * Class AbstractObject
  * @package AlejandroSosa\YiiPowerPoint
  */
-abstract class AbstractObject
+abstract class AbstractObject implements ConstantesPPT
 {
     /**
      * Create custom object

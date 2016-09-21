@@ -16,11 +16,17 @@ use PhpOffice\PhpPresentation\Slide;
  */
 abstract class AbstractPptFactory
 {
+    const TYPE_TEXT     = 'texts';
+    const TYPE_IMAGE    = 'images';
+    const TYPE_TABLE    = 'tables';
+    const TYPE_CHART    = 'charts';
+
     /**
      * Create objects dynamically to add a slide
+     * @param $type type of object (text, image, table, chart)
      * @param Slide $slide
      * @param array $options
      * @return mixed
      */
-    abstract public static function build(Slide $slide, $options = []);
+    abstract public static function build($type, Slide $slide, $options = []);
 }

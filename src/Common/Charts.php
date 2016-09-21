@@ -38,7 +38,6 @@ class Charts extends AbstractObject
     public static function create(Slide $slide, $options = [])
     {
         // TODO: Implement create() method.
-        return 'hola desde charts';
     }
 
     /**

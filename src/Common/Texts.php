@@ -10,21 +10,73 @@
 namespace AlejandroSosa\YiiPowerPoint\Common;
 
 use PhpOffice\PhpPresentation\Slide;
+use AlejandroSosa\YiiPowerPoint\Common\Style;
+use AlejandroSosa\YiiPowerPoint\Common\Helper;
 
 /**
  * Class Texts
  * @package AlejandroSosa\YiiPowerPoint\Common
  */
-class Texts extends AbstractObject
+class Texts extends AbstractObject 
 {
     /**
+     * Create custom object
      * @param Slide $slide
      * @param array $options
      * @return mixed
      */
     public static function create(Slide $slide, $options = [])
     {
-        // TODO: Implement create() method.
-        return 'hola desde texts';
+        self::createCustomText($slide, $options);
+    }
+
+    /**
+     * Create object text into slide
+     * @param Slide $slide
+     * @param array $params
+     */
+    private function createCustomText(Slide $slide, $params = [])
+    {
+        $text       = Helper::hasArrayProperty('text', $params) ? $params['text'] : '';
+        $options    = Helper::hasArrayProperty('options', $params) ? $params['options'] : [];
+
+        $height     = Helper::hasArrayProperty('height', $options) ? $options['height'] : self::TEXT_HEIGHT;
+        $width      = Helper::hasArrayProperty('width', $options) ? $options['width'] : self::TEXT_WIDTH;
+        $offset_x   = Helper::hasArrayProperty('ox', $options) ? $options['ox'] : self::TEXT_OFFSET_X;
+        $offset_y   = Helper::hasArrayProperty('oy', $options) ? $options['oy'] : self::TEXT_OFFSET_Y;
+        $align      = Helper::hasArrayProperty('align', $options) ? $options['align'] : self::TEXT_ALIGN_HORIZONTAL_CENTER;
+        $bold       = Helper::hasArrayProperty('bold', $options) ? $options['bold'] : false;
+        $color      = Helper::hasArrayProperty('color', $options) ? $options['color'] : self::DEFAULT_COLOR;
+        $size       = Helper::hasArrayProperty('size', $options) ? $options['size'] : self::TEXT_SIZE;
+
+        $current_slide = $slide;
+        $shape = $current_slide->createRichTextShape();
+
+        //set height, width and offset rich text
+        $shape->setHeight($height)->setWidth($width)->setOffsetX($offset_x)->setOffsetY($offset_y);
+
+        //set align of text
+        $paragraph = $shape->getActiveParagraph();
+        Style::setAlignText($paragraph, $align);
+
+        //check if text has break line
+        if(Helper::stringContains($text, self::TEXT_BREAK)){
+            foreach (Helper::convertStringToArray($text, self::TEXT_BREAK) as $item) {
+                //set text
+                $current_text = $shape->createTextRun($item);
+
+                //set style
+                Style::setStyleText($current_text, $size, $bold, $color);
+
+                //add breakline
+                $shape->createBreak();
+            }
+        }else{
+            //set text
+            $current_text = $shape->createTextRun($text);
+
+            //set style
+            Style::setStyleText($current_text, $size, $bold, $color);
+        }
     }
 }
