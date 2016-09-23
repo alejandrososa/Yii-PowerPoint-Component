@@ -53,26 +53,26 @@ $slides = [
                 ],
             ],
         ],
-        'pie3D' => [
+        'charts' => [
             [
-                'title'=>Yii::t('app', 'My first title'),
+                'title'=>Yii::t('app', 'My first chart pie 3D'),
                 'series'=>['Monday' => 12, 'Tuesday' => 15, 'Wednesday' => 13, 'Thursday' => 17, 'Friday' => 14, 'Saturday' => 9, 'Sunday' => 7],
-                'options'=>['height'=>234, 'width'=>450, 'ox'=>18, 'oy'=>117]
+                'options'=>['type'=>PowerPoint::CHART_TYPE_PIE3D,'height'=>400, 'width'=>915, 'ox'=>18, 'oy'=>117]
             ],
             [
-                'title'=>Yii::t('app', 'My second title'),
+                'title'=>Yii::t('app', 'My second chart pie 3D'),
                 'series'=>['Monday' => 12, 'Tuesday' => 15, 'Wednesday' => 13, 'Thursday' => 17],
-                'options'=>['height'=>234, 'width'=>450, 'ox'=>487, 'oy'=>117]
+                'options'=>['type'=>PowerPoint::CHART_TYPE_PIE3D,'height'=>234, 'width'=>450, 'ox'=>487, 'oy'=>117]
             ],
             [
-                'title'=>Yii::t('app', 'My third title'),
+                'title'=>Yii::t('app', 'My third chart pie 3D'),
                 'series'=>['Monday' => 12, 'Tuesday' => 15, 'Wednesday' => 13, 'Thursday' => 17, 'Friday' => 14, 'Saturday' => 9, 'Sunday' => 7],
-                'options'=>['height'=>234, 'width'=>450, 'ox'=>18, 'oy'=>367]
+                'options'=>['type'=>PowerPoint::CHART_TYPE_PIE3D,'height'=>234, 'width'=>450, 'ox'=>18, 'oy'=>367]
             ],
             [
-                'title'=>Yii::t('app', 'My quarter title'),
+                'title'=>Yii::t('app', 'My quarter chart pie 3D'),
                 'series'=>['Monday' => 12, 'Tuesday' => 15, 'Wednesday' => 13, 'Thursday' => 17, 'Friday' => 14, 'Saturday' => 9],
-                'options'=>['height'=>234, 'width'=>450, 'ox'=>487, 'oy'=>367]
+                'options'=>['type'=>PowerPoint::CHART_TYPE_PIE3D,'height'=>234, 'width'=>450, 'ox'=>487, 'oy'=>367]
             ]
         ],
     ]

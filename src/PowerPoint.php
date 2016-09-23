@@ -53,7 +53,7 @@ class PowerPoint extends \CApplicationComponent implements ConstantesPPT
      * @var Drawing
      */
     private $_shape;
-
+    
 
     /**
      * PowerPoint constructor.
