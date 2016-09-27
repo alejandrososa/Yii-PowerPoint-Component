@@ -26,7 +26,7 @@ use AlejandroSosa\YiiPowerPoint\PowerPoint;
  * Class Style
  * @package AlejandroSosa\YiiPowerPoint\Common
  */
-class Style extends PowerPoint
+class Style implements ConstantesPPT
 {
     /**
      * Set background of slide
@@ -35,7 +35,7 @@ class Style extends PowerPoint
      */
     public static function setBackgroundSlide(Slide $slide, $path_image)
     {
-        if($slide instanceof Slide && !empty($path_image)) {
+        if($slide instanceof Slide && file_exists($path_image)) {
             $image = new Image();
             $image->setPath($path_image);
             $slide->setBackground($image);
@@ -133,5 +133,14 @@ class Style extends PowerPoint
         if($column instanceof Cell){
             $column->setWidth($width);
         }
+    }
+
+    /**
+     * Get rgb color
+     * @param $color
+     * @return mixed
+     */
+    public static function getRGB($color){
+        return strlen($color) > 6 ? substr($color, 2) : $color;
     }
 }

@@ -32,16 +32,46 @@ use AlejandroSosa\YiiPowerPoint\Common\Style;
  */
 class PowerPoint extends \CApplicationComponent implements ConstantesPPT
 {
-
+    /**
+     * Configuration options
+     * @var array
+     */
     public $options             = [];
+
+    /**
+     * Setting slides
+     * @var array
+     */
     public $slides              = [];
 
-    private $_logo;
-    private $_orientacion;
+    /**
+     * Path where file is saved
+     * @var
+     */
     private $_pathDir;
-    private $_fileName          = 'Informe';
+
+    /**
+     * Default File name
+     * @var string
+     */
+    private $_fileName          = 'presentation';
+
+    /**
+     * Default file extension
+     * @var string
+     */
     private $_fileExtension     = 'pptx';
+
+    /**
+     * Configuration file
+     * @var array
+     */
     private $_fileProperties    = [];
+
+    /**
+     * Configuration layout styles
+     * @var array
+     */
     private $_paramsLayout      = [];
 
     /**
@@ -49,11 +79,6 @@ class PowerPoint extends \CApplicationComponent implements ConstantesPPT
      */
     private $_presentation;
 
-    /**
-     * @var Drawing
-     */
-    private $_shape;
-    
 
     /**
      * PowerPoint constructor.
@@ -70,32 +95,34 @@ class PowerPoint extends \CApplicationComponent implements ConstantesPPT
      */
     public function init()
     {
+        $options = $this->options;
+
         //file
         $this->_pathDir         = \Yii::app()->getBasePath() . '/runtime/ppt';
-        $this->_fileName        = Helper::hasArrayProperty('fileName', $this->options) ? $this->options['fileName'] : $this->_fileName;
-        $this->_fileExtension   = Helper::hasArrayProperty('fileExtension', $this->options) ? $this->options['fileExtension'] : $this->_fileExtension;
+        $this->_fileName        = Helper::hasArrayProperty('fileName', $options) ? $options['fileName'] : $this->_fileName;
+        $this->_fileExtension   = Helper::hasArrayProperty('fileExtension', $options) ? $options['fileExtension'] : $this->_fileExtension;
 
         //properties of file
-        $this->_fileProperties  = Helper::hasArrayProperty('fileProperties', $this->options) ? $this->options['fileProperties'] : $this->_fileProperties;
+        $this->_fileProperties  = Helper::hasArrayProperty('fileProperties', $options) ? $options['fileProperties'] : $this->_fileProperties;
 
         //layout of all slides
-        $this->_paramsLayout = Helper::hasArrayProperty('layout', $this->options) ? $this->options['layout'] : [];
+        $this->_paramsLayout    = Helper::hasArrayProperty('layout', $options) ? $options['layout'] : [];
 
         //directory for save file ppt
         $this->initStorage();
     }
 
-
     /**
      * Create presentation ppt
      * @param array $options
      * @param array $slides
+     * @return string absolute path of file
      */
     public function generate($options = [], $slides = [])
     {
-        $this->options = $options;
-        $this->slides = $slides;
-
+        //init vars
+        $this->options  = $options;
+        $this->slides   = $slides;
         $this->init();
 
         //set properties informacion file
@@ -104,102 +131,10 @@ class PowerPoint extends \CApplicationComponent implements ConstantesPPT
         //create slides
         $this->createCustomSlides();
 
-        //download file ppt
-        $this->saveFile();
-    }
+        //save file ppt
+        $file = $this->saveFile();
 
-    //FILE
-
-    /**
-     * Save file PPT
-     * The file is saved into runtime/ppt
-     */
-    private function saveFile()
-    {
-        if(!empty($this->_presentation)) {
-            $path = $this->_pathDir .'/'. $this->_fileName .'.'. $this->_fileExtension;
-            $oWriterPPTX = IOFactory::createWriter($this->_presentation, 'PowerPoint2007');
-            $oWriterPPTX->save($path);
-        }
-    }
-
-    /**
-     * Check if storage directory exist or create it
-     * The directory is created in runtime/
-     */
-    private function initStorage()
-    {
-        Helper::createDirectory($this->_pathDir);
-    }
-
-    /**
-     * Set properties of file
-     * Set the document information such as Title, Subject, Description, Creator, and Company name
-     */
-    private function setPropertiesFile()
-    {
-        if(!empty($this->options['fileProperties'])) {
-            $creator = !empty($this->options['fileProperties']['creator'])
-                ? $this->options['fileProperties']['creator'] : self::PPT_CREATOR;
-            $title = !empty($this->options['fileProperties']['title'])
-                ? $this->options['fileProperties']['title'] : self::PPT_TITLE;
-            $subject = !empty($this->options['fileProperties']['subject'])
-                ? $this->options['fileProperties']['subject'] : self::PPT_SUBJECT;
-            $description = !empty($this->options['fileProperties']['description'])
-                ? $this->options['fileProperties']['description'] : self::PPT_DESCRIPTION;
-
-            $this->_presentation->getDocumentProperties()
-                ->setCreator($creator)
-                ->setTitle($title)
-                ->setSubject($subject)
-                ->setDescription($description);
-        }
-    }
-
-
-    //STYLE TEMPLATE
-
-    /**
-     * Assigns the background
-     * @return bool
-     */
-    private function assignBackground()
-    {
-        if(empty($this->_paramsLayout)
-            && empty($this->_paramsLayout['background'])
-            && file_exists($this->_paramsLayout['background'])){
-            return false;
-        }
-
-        $current_slide = $this->_presentation->getActiveSlide();
-        Style::setBackgroundSlide($current_slide, $this->_paramsLayout['background']);
-    }
-
-    /**
-     * Add logo into slide
-     *
-     * @param PHPPresentation $objPHPPresentation
-     * @return \PhpOffice\PhpPresentation\Slide
-     */
-    private function createLogo($objPHPPresentation)
-    {
-        // Create slide
-        $slide = $objPHPPresentation->createSlide();
-
-        // Add logo
-        $shape = $slide->createDrawingShape();
-        $shape->setName('PHPPresentation logo')
-            ->setDescription('PHPPresentation logo')
-            ->setPath(\Yii::getPathOfAlias('images') .'/ppt/logo.png')
-            ->setHeight(36)
-            ->setOffsetX(10)
-            ->setOffsetY(10);
-//        $shape->getShadow()->setVisible(true)
-//            ->setDirection(45)
-//            ->setDistance(10);
-
-        // Return slide
-        return $slide;
+        return $file;
     }
 
     /**
@@ -226,5 +161,94 @@ class PowerPoint extends \CApplicationComponent implements ConstantesPPT
                 ObjectsPptFactory::build($tipo, $current_slide, $options);
             }
         }
+    }
+
+    //FILE
+
+    /**
+     * Save file PPT
+     * The file is saved into runtime/ppt
+     * @return string
+     */
+    private function saveFile()
+    {
+        if(!empty($this->_presentation)) {
+            $path           = $this->_pathDir .'/'. $this->_fileName .'.'. $this->_fileExtension;
+            $oWriterPPTX    = IOFactory::createWriter($this->_presentation, 'PowerPoint2007');
+            $oWriterPPTX->save($path);
+            return $path;
+        }
+    }
+
+    /**
+     * Check if storage directory exist or create it
+     * The directory is created in runtime/
+     */
+    private function initStorage()
+    {
+        Helper::createDirectory($this->_pathDir);
+    }
+
+    /**
+     * Set properties of file
+     * Set the document information such as Title, Subject, Description, Creator, and Company name
+     */
+    private function setPropertiesFile()
+    {
+        if(!empty($this->options['fileProperties'])) {
+            $properties = $this->options['fileProperties'];
+            $creator    = Helper::hasArrayProperty('creator', $properties) ? $properties['creator'] : self::PPT_CREATOR;
+            $title      = Helper::hasArrayProperty('title', $properties) ? $properties['title'] : self::PPT_TITLE;
+            $subject    = Helper::hasArrayProperty('subject', $properties) ? $properties['subject'] : self::PPT_SUBJECT;
+            $description= Helper::hasArrayProperty('description', $properties) ? $properties['description'] : self::PPT_DESCRIPTION;
+
+            $this->_presentation->getDocumentProperties()
+                ->setCreator($creator)
+                ->setTitle($title)
+                ->setSubject($subject)
+                ->setDescription($description);
+        }
+    }
+
+
+    //STYLE TEMPLATE
+
+    /**
+     * Assigns the background
+     * @return bool
+     */
+    private function assignBackground()
+    {
+        if(empty($this->_paramsLayout) && empty($this->_paramsLayout['background'])){
+            return false;
+        }
+
+        $current_slide = $this->_presentation->getActiveSlide();
+        Style::setBackgroundSlide($current_slide, $this->_paramsLayout['background']);
+    }
+
+    //TODO class style function to move
+    /**
+     * Add logo into slide
+     * @param PHPPresentation $objPHPPresentation
+     * @return \PhpOffice\PhpPresentation\Slide
+     */
+    private function createLogo($objPHPPresentation)
+    {
+        // Create slide
+        $slide = $objPHPPresentation->createSlide();
+
+        // Add logo
+        $shape = $slide->createDrawingShape();
+        $shape->setName('PHPPresentation logo')
+            ->setDescription('PHPPresentation logo')
+            ->setPath(\Yii::getPathOfAlias('images') .'/ppt/logo.png')
+            ->setHeight(36)
+            ->setOffsetX(10)
+            ->setOffsetY(10);
+        //$shape->getShadow()->setVisible(true)->setDirection(45)->setDistance(10);
+
+        // Return slide
+        return $slide;
     }
 }

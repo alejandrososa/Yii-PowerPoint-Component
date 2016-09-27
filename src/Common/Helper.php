@@ -51,7 +51,7 @@ class Helper
      */
     public static function hasArrayProperty($property, $array = [])
     {
-        return (!empty($array) && !empty($array[$property])) ? true : false;
+        return !empty($array) && array_key_exists($property, $array) ? true : false;
     }
 
     /**

@@ -55,50 +55,47 @@ $slides = [
         ],
         'charts' => [
             [
-                'title'=>Yii::t('app', 'My first chart bar'),
-                'series'=>
-                    [
-                        ['Monday' => 12, 'Tuesday' => 15, 'Wednesday' => 13, 'Thursday' => 17, 'Friday' => 14, 'Saturday' => 9],
-                        ['Monday' => 7, 'Tuesday' => 9, 'Wednesday' => 19, 'Thursday' => 16, 'Friday' => 8, 'Saturday' => 11],
-                        ['Monday' => 12, 'Tuesday' => 20, 'Wednesday' => 13, 'Thursday' => 7, 'Friday' => 4, 'Saturday' => 9]
-                    ],
+                'title'=>Yii::t('app', 'My first chart scatter'),
+                'series'=> ['Jan' => 133, 'Feb' => 99, 'Mar' => 191, 'Apr' => 205, 'May' => 167, 'Jun' => 201],
                 'options'=>[
-                    'type'=>PowerPoint::CHART_TYPE_BAR, 'seriesName'=> ['2014', '2015', '2016'], 'showSeriesName'=> false,
+                    'type'=>PowerPoint::CHART_TYPE_SCATTER, 'seriesName'=> ['2015'],
+                    'showSeriesName'=> false, 'showValue'=>true, 'showPercente'=>false,
                     'titleItalic' => true, 'legendItalic' => true,
                     'height'=>234, 'width'=>450, 'ox'=>18, 'oy'=>117
                 ]
             ],
             [
-                'title'=>Yii::t('app', 'My second chart bar'),
+                'title'=>Yii::t('app', 'My second chart scatter'),
                 'series'=> ['Monday' => 12, 'Tuesday' => 15, 'Wednesday' => 13, 'Thursday' => 17, 'Friday' => 14, 'Saturday' => 9],
                 'options'=>[
-                    'type'=>PowerPoint::CHART_TYPE_BAR, 'seriesName'=> ['2009', '2010'], 'showSeriesName'=> false,
+                    'type'=>PowerPoint::CHART_TYPE_SCATTER, 'seriesName'=> ['2015'],
+                    'showSeriesName'=> false, 'showValue'=>true, 'showPercente'=>false,
+                    'showSymbol' => true, 'typeSymbol' => PowerPoint::SYMBOL_STAR,
                     'titleItalic' => true, 'legendItalic' => true,
                     'height'=>234, 'width'=>450, 'ox'=>487, 'oy'=>117
                 ]
             ],
             [
-                'title'=>Yii::t('app', 'My third chart bar'),
-                'series'=>
-                    [
-                        ['Monday' => 12, 'Tuesday' => 15, 'Wednesday' => 13, 'Thursday' => 17, 'Friday' => 14, 'Saturday' => 9],
-                        ['Monday' => 12, 'Tuesday' => 20, 'Wednesday' => 13, 'Thursday' => 7, 'Friday' => 4, 'Saturday' => 9]
-                    ],
+                'title'=>Yii::t('app', 'My third chart scatter'),
+                'series'=>['Monday' => 12, 'Tuesday' => 15, 'Wednesday' => 13, 'Thursday' => 17, 'Friday' => 14, 'Saturday' => 9],
                 'options'=>[
-                    'type'=>PowerPoint::CHART_TYPE_BAR, 'seriesName'=> ['2009', '2010'], 'showSeriesName'=> false,
+                    'type'=>PowerPoint::CHART_TYPE_SCATTER, 'seriesName'=> ['2015', '2016'],
+                    'showSeriesName'=> false, 'showValue'=>true, 'showPercente'=>false,
+                    'showSymbol' => false,
                     'titleItalic' => true, 'legendItalic' => true,
                     'height'=>234, 'width'=>450, 'ox'=>18, 'oy'=>367
                 ]
             ],
             [
-                'title'=>Yii::t('app', 'My quarter chart bar'),
-                'series'=>
-                    [
-                        ['October' => 12, 'November' => 15, 'December' => 13],
-                        ['October' => 11, 'November' => 20, 'December' => 14]
-                    ],
+                'title'=>Yii::t('app', 'My quarter chart scatter'),
+                'series'=> [
+                    ['October' => 12, 'November' => 15, 'December' => 13],
+                    ['October' => 20, 'November' => 18, 'December' => 15],
+                ],
                 'options'=>[
-                    'type'=>PowerPoint::CHART_TYPE_BAR, 'seriesName'=> ['2014', '2015'], 'showSeriesName'=> false,
+                    'type'=>PowerPoint::CHART_TYPE_SCATTER, 'seriesName'=> ['2015', '2016'],
+                    'showSeriesName'=> false, 'showValue'=>true, 'showPercente'=>false,
+                    'showSymbol' => true, 'typeSymbol' => PowerPoint::SYMBOL_DIAMOND,
                     'titleItalic' => true, 'legendItalic' => true,
                     'height'=>234, 'width'=>450, 'ox'=>487, 'oy'=>367
                 ]

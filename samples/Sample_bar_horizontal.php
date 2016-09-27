@@ -55,7 +55,7 @@ $slides = [
         ],
         'charts' => [
             [
-                'title'=>Yii::t('app', 'My first chart bar'),
+                'title'=>Yii::t('app', 'My first chart bar horizontal'),
                 'series'=>
                     [
                         ['Monday' => 12, 'Tuesday' => 15, 'Wednesday' => 13, 'Thursday' => 17, 'Friday' => 14, 'Saturday' => 9],
@@ -63,42 +63,42 @@ $slides = [
                         ['Monday' => 12, 'Tuesday' => 20, 'Wednesday' => 13, 'Thursday' => 7, 'Friday' => 4, 'Saturday' => 9]
                     ],
                 'options'=>[
-                    'type'=>PowerPoint::CHART_TYPE_BAR, 'seriesName'=> ['2014', '2015', '2016'], 'showSeriesName'=> false,
+                    'type'=>PowerPoint::CHART_TYPE_BAR_HORIZONTAL, 'seriesName'=> ['2014', '2015', '2016'], 'showSeriesName'=> false,
                     'titleItalic' => true, 'legendItalic' => true,
                     'height'=>234, 'width'=>450, 'ox'=>18, 'oy'=>117
                 ]
             ],
             [
-                'title'=>Yii::t('app', 'My second chart bar'),
+                'title'=>Yii::t('app', 'My second chart bar horizontal'),
                 'series'=> ['Monday' => 12, 'Tuesday' => 15, 'Wednesday' => 13, 'Thursday' => 17, 'Friday' => 14, 'Saturday' => 9],
                 'options'=>[
-                    'type'=>PowerPoint::CHART_TYPE_BAR, 'seriesName'=> ['2009', '2010'], 'showSeriesName'=> false,
+                    'type'=>PowerPoint::CHART_TYPE_BAR_HORIZONTAL, 'seriesName'=> ['2009', '2010'], 'showSeriesName'=> false,
                     'titleItalic' => true, 'legendItalic' => true,
                     'height'=>234, 'width'=>450, 'ox'=>487, 'oy'=>117
                 ]
             ],
             [
-                'title'=>Yii::t('app', 'My third chart bar'),
+                'title'=>Yii::t('app', 'My third chart bar horizontal'),
                 'series'=>
                     [
                         ['Monday' => 12, 'Tuesday' => 15, 'Wednesday' => 13, 'Thursday' => 17, 'Friday' => 14, 'Saturday' => 9],
                         ['Monday' => 12, 'Tuesday' => 20, 'Wednesday' => 13, 'Thursday' => 7, 'Friday' => 4, 'Saturday' => 9]
                     ],
                 'options'=>[
-                    'type'=>PowerPoint::CHART_TYPE_BAR, 'seriesName'=> ['2009', '2010'], 'showSeriesName'=> false,
+                    'type'=>PowerPoint::CHART_TYPE_BAR_HORIZONTAL, 'seriesName'=> ['2009', '2010'], 'showSeriesName'=> false,
                     'titleItalic' => true, 'legendItalic' => true,
                     'height'=>234, 'width'=>450, 'ox'=>18, 'oy'=>367
                 ]
             ],
             [
-                'title'=>Yii::t('app', 'My quarter chart bar'),
+                'title'=>Yii::t('app', 'My quarter chart bar horizontal'),
                 'series'=>
                     [
                         ['October' => 12, 'November' => 15, 'December' => 13],
                         ['October' => 11, 'November' => 20, 'December' => 14]
                     ],
                 'options'=>[
-                    'type'=>PowerPoint::CHART_TYPE_BAR, 'seriesName'=> ['2014', '2015'], 'showSeriesName'=> false,
+                    'type'=>PowerPoint::CHART_TYPE_BAR_HORIZONTAL, 'seriesName'=> ['2014', '2015'], 'showSeriesName'=> false,
                     'titleItalic' => true, 'legendItalic' => true,
                     'height'=>234, 'width'=>450, 'ox'=>487, 'oy'=>367
                 ]

@@ -55,24 +55,24 @@ $slides = [
         ],
         'charts' => [
             [
-                'title'=>Yii::t('app', 'My first chart pie 3D'),
+                'title'=>Yii::t('app', 'My first chart pie'),
                 'series'=>['Monday' => 12, 'Tuesday' => 15, 'Wednesday' => 13, 'Thursday' => 17, 'Friday' => 14, 'Saturday' => 9, 'Sunday' => 7],
-                'options'=>['type'=>PowerPoint::CHART_TYPE_PIE_3D,'height'=>234, 'width'=>450, 'ox'=>18, 'oy'=>117]
+                'options'=>['type'=>PowerPoint::CHART_TYPE_PIE,'height'=>234, 'width'=>450, 'ox'=>18, 'oy'=>117]
             ],
             [
-                'title'=>Yii::t('app', 'My second chart pie 3D'),
+                'title'=>Yii::t('app', 'My second chart pie'),
                 'series'=>['Monday' => 12, 'Tuesday' => 15, 'Wednesday' => 13, 'Thursday' => 17],
-                'options'=>['type'=>PowerPoint::CHART_TYPE_PIE_3D,'height'=>234, 'width'=>450, 'ox'=>487, 'oy'=>117]
+                'options'=>['type'=>PowerPoint::CHART_TYPE_PIE,'height'=>234, 'width'=>450, 'ox'=>487, 'oy'=>117]
             ],
             [
-                'title'=>Yii::t('app', 'My third chart pie 3D'),
+                'title'=>Yii::t('app', 'My third chart pie'),
                 'series'=>['Monday' => 12, 'Tuesday' => 15, 'Wednesday' => 13, 'Thursday' => 17, 'Friday' => 14, 'Saturday' => 9, 'Sunday' => 7],
-                'options'=>['type'=>PowerPoint::CHART_TYPE_PIE_3D,'height'=>234, 'width'=>450, 'ox'=>18, 'oy'=>367]
+                'options'=>['type'=>PowerPoint::CHART_TYPE_PIE,'height'=>234, 'width'=>450, 'ox'=>18, 'oy'=>367]
             ],
             [
-                'title'=>Yii::t('app', 'My quarter chart pie 3D'),
+                'title'=>Yii::t('app', 'My quarter chart pie'),
                 'series'=>['Monday' => 12, 'Tuesday' => 15, 'Wednesday' => 13, 'Thursday' => 17, 'Friday' => 14, 'Saturday' => 9],
-                'options'=>['type'=>PowerPoint::CHART_TYPE_PIE_3D,'height'=>234, 'width'=>450, 'ox'=>487, 'oy'=>367]
+                'options'=>['type'=>PowerPoint::CHART_TYPE_PIE,'height'=>234, 'width'=>450, 'ox'=>487, 'oy'=>367]
             ]
         ],
     ]
