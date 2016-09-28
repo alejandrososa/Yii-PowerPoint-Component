@@ -3,8 +3,7 @@
     "description": "Yii PowerPoint - Create and write presentations, with slides; slides are made up of text, images in PHP",
     "type": "yii-component",
     "require": {
-        "php": ">=5.3.0",
-        "phpoffice/phppresentation": "^0.7.0"
+        "php": ">=5.3.0"
     },
     "authors": [
         {
