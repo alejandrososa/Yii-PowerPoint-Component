@@ -32,7 +32,7 @@ $slides = [
                 'text'=>Yii::t('app', 'Delivery'),
                 'options'=>[
                     'height'=>38, 'width'=>360, 'ox'=>345, 'oy'=>34,
-                    'bold'=> true, 'size'=>18, 'color'=>'FF2196F3',
+                    'bold'=> true, 'size'=>18, 'color'=>PowerPoint::COLOR_CYAN,
                     'align'=>PowerPoint::TEXT_ALIGN_VERTICAL_CENTER,
                 ],
             ],
@@ -40,7 +40,7 @@ $slides = [
                 'text'=>Yii::t('app', 'Abril/2016'),
                 'options'=>[
                     'height'=>38, 'width'=>132, 'ox'=>816, 'oy'=>52,
-                    'bold'=> true, 'size'=>18, 'color'=>'FF2196F3',
+                    'bold'=> true, 'size'=>18, 'color'=>PowerPoint::COLOR_CYAN,
                     'align'=>PowerPoint::TEXT_ALIGN_VERTICAL_CENTER,
                 ],
             ],
@@ -48,7 +48,7 @@ $slides = [
                 'text'=>Yii::t('app', 'State Budget 2016'),
                 'options'=>[
                     'height'=>38, 'width'=>403, 'ox'=>326, 'oy'=>73,
-                    'bold'=> true, 'size'=>18, 'color'=>'FF2196F3',
+                    'bold'=> true, 'size'=>18, 'color'=>PowerPoint::COLOR_CYAN,
                     'align'=>PowerPoint::TEXT_ALIGN_VERTICAL_CENTER,
                 ],
             ],
