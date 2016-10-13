@@ -69,6 +69,12 @@ class PowerPoint extends \CApplicationComponent implements ConstantesPPT
     private $_fileProperties    = [];
 
     /**
+     * Path of file was saved
+     * @var string
+     */
+    private $_filePath;
+
+    /**
      * Configuration layout styles
      * @var array
      */
@@ -108,6 +114,9 @@ class PowerPoint extends \CApplicationComponent implements ConstantesPPT
         //layout of all slides
         $this->_paramsLayout    = Helper::hasArrayProperty('layout', $options) ? $options['layout'] : [];
 
+        //path where the file is saved
+        $this->_filePath        = $this->_pathDir .'/'. $this->_fileName .'.'. $this->_fileExtension;
+
         //directory for save file ppt
         $this->initStorage();
     }
@@ -118,7 +127,7 @@ class PowerPoint extends \CApplicationComponent implements ConstantesPPT
      * @param array $slides
      * @return string absolute path of file
      */
-    public function generate($options = [], $slides = [])
+    public function generate($options = [], $slides = [], $download = true)
     {
         //init vars
         $this->options  = $options;
@@ -133,6 +142,11 @@ class PowerPoint extends \CApplicationComponent implements ConstantesPPT
 
         //save file ppt
         $file = $this->saveFile();
+
+        //download file ppt
+        if($download){
+            $this->downloadFile();
+        }
 
         return $file;
     }
@@ -173,10 +187,23 @@ class PowerPoint extends \CApplicationComponent implements ConstantesPPT
     private function saveFile()
     {
         if(!empty($this->_presentation)) {
-            $path           = $this->_pathDir .'/'. $this->_fileName .'.'. $this->_fileExtension;
-            $oWriterPPTX    = IOFactory::createWriter($this->_presentation, 'PowerPoint2007');
-            $oWriterPPTX->save($path);
-            return $path;
+            $oWriterPPTX = IOFactory::createWriter($this->_presentation, 'PowerPoint2007');
+            $oWriterPPTX->save($this->_filePath);
+            return $this->_filePath;
+        }
+    }
+
+    /**
+     * Download file generated ppt
+     */
+    private function downloadFile()
+    {
+        if(!empty($this->_filePath) && file_exists($this->_filePath)){
+            header('Content-type:application/'. $this->_fileExtension);
+            header('Content-Disposition: attachment; filename="'.$this->_fileName.'"');
+            header('Content-Length: ' . filesize($this->_filePath));
+            readfile($this->_filePath);
+            Yii::app()->end();
         }
     }
 
