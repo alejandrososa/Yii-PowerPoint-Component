@@ -199,8 +199,8 @@ class PowerPoint extends \CApplicationComponent implements ConstantesPPT
     private function downloadFile()
     {
         if(!empty($this->_filePath) && file_exists($this->_filePath)){
-            header('Content-type:application/'. $this->_fileExtension);
-            header('Content-Disposition: attachment; filename="'.$this->_fileName.'"');
+            header('Content-type:application/vnd.ms-powerpoint');
+            header('Content-Disposition: attachment; filename="'.$this->_fileName.'.'.$this->_fileExtension.'"');
             header('Content-Length: ' . filesize($this->_filePath));
             readfile($this->_filePath);
             Yii::app()->end();
