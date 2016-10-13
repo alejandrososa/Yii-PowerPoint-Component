@@ -126,7 +126,7 @@ class Tables extends AbstractObject
     private function makeRow(TBL $table, $texts = [], $size = 10, $bold = false, $color = 'FF000000',
                              $align, $background = 'FFFFFFFF', $width = 100, $height = 20){
 
-        $align = !empty($align) ? $align : Alignment::TEXT_ALIGN_HORIZONTAL_CENTER;
+        $align = !empty($align) ? $align : self::TEXT_ALIGN_HORIZONTAL_CENTER;
 
         if($table instanceof TBL) {
             //create row
