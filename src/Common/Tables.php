@@ -83,8 +83,8 @@ class Tables extends AbstractObject
 
         //add the remaining rows
         foreach ($rows as $row) {
-            $texts = $row['columns'];
-            $style = $row['style'];
+            $texts = !empty($row['columns']) ? $row['columns'] : [];
+            $style = !empty($row['style']) ? $row['style'] : [];
             self::makeRow($shape, $texts, $style['size'], $style['bold'], $style['color'], $style['align'], $style['background']);
         }
     }
