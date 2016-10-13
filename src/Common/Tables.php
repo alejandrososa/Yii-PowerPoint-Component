@@ -61,7 +61,7 @@ class Tables extends AbstractObject
         //header
         $header_columns     = Helper::hasArrayProperty('columns', $row_header) ? $row_header['columns'] : [];
         $header_style       = Helper::hasArrayProperty('style', $row_header) ? $row_header['style'] : [];
-        $header_background  = Helper::hasArrayProperty('background', $header_style) ? $header_style['background'] : 'FFFFFFFF';
+        $header_background  = Helper::hasArrayProperty('background', $header_style) ? $header_style['background'] : self::COLOR_WHITE;
         $header_text_bold   = Helper::hasArrayProperty('bold', $header_style) ? $header_style['bold'] : false;
         $header_text_size   = Helper::hasArrayProperty('size', $header_style) ? $header_style['size'] : self::TEXT_SIZE;
         $header_text_color  = Helper::hasArrayProperty('color', $header_style) ? $header_style['color'] : self::DEFAULT_COLOR;
@@ -83,9 +83,14 @@ class Tables extends AbstractObject
 
         //add the remaining rows
         foreach ($rows as $row) {
-            $texts = !empty($row['columns']) ? $row['columns'] : [];
-            $style = !empty($row['style']) ? $row['style'] : [];
-            self::makeRow($shape, $texts, $style['size'], $style['bold'], $style['color'], $style['align'], $style['background']);
+            $texts  = !empty($row['columns']) ? $row['columns'] : [];
+            $style  = !empty($row['style']) ? $row['style'] : [];
+            $size   = !empty($style['size']) ? $style['size'] : self::TEXT_SIZE;
+            $bold   = !empty($style['bold']) ? $style['bold'] : self::FALSE;
+            $color  = !empty($style['color']) ? $style['color'] : self::COLOR_PRIMARY_TEXT;
+            $align  = !empty($style['align']) ? $style['align'] : self::TEXT_ALIGN_HORIZONTAL_LEFT;
+            $bg     = !empty($style['background']) ? $style['background'] : self::COLOR_WHITE;
+            self::makeRow($shape, $texts, $size, $bold, $color, $align, $bg);
         }
     }
 
@@ -181,6 +186,4 @@ class Tables extends AbstractObject
             }
         }
     }
-
-
 }
