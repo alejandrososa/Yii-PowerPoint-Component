@@ -100,4 +100,8 @@ interface ConstantesPPT
     const DEFAULT_MARGIN_TOP                    = 100;
     const DEFAULT_SLIDE_WITH                    = 1040;
     const DEFAULT_SLIDE_HEIGTH                  = 720;
+
+    //BOOLEANS
+    const TRUE                                  = true;
+    const FALSE                                 = false;
 }
