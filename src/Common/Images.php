@@ -27,10 +27,10 @@ class Images extends AbstractObject
         //check if options is only one or multiple
         if (Helper::isArrayMultidimensional($options)) {
             foreach ($options as $item) {
-//                self::createCustomImage($slide, $item);
+                self::createCustomImage($slide, $item);
             }
         } else {
-//            self::createCustomImage($slide, $options);
+            self::createCustomImage($slide, $options);
         }
     }
 
@@ -40,20 +40,31 @@ class Images extends AbstractObject
      */
     private function createCustomImage(Slide $slide, $params = [])
     {
-        $height     = Helper::hasArrayProperty('height', $params) ? $params['height'] : self::TEXT_HEIGHT;
-        $width      = Helper::hasArrayProperty('width', $params) ? $params['width'] : self::TEXT_WIDTH;
-        $offset_x   = Helper::hasArrayProperty('ox', $params) ? $params['ox'] : self::TEXT_OFFSET_X;
-        $offset_y   = Helper::hasArrayProperty('oy', $params) ? $params['oy'] : self::TEXT_OFFSET_Y;
-        $name       = Helper::hasArrayProperty('name', $params) ? $params['name'] : '';
-        $description= Helper::hasArrayProperty('decription', $params) ? $params['name'] : '';
-
-//        if()
-
-        $current_slide = $slide;
-//        $shape = $current_slide->createRichTextShape();
+        $height         = Helper::hasArrayProperty('height', $params) ? $params['height'] : self::TEXT_HEIGHT;
+        $width          = Helper::hasArrayProperty('width', $params) ? $params['width'] : self::TEXT_WIDTH;
+        $offset_x       = Helper::hasArrayProperty('ox', $params) ? $params['ox'] : self::TEXT_OFFSET_X;
+        $offset_y       = Helper::hasArrayProperty('oy', $params) ? $params['oy'] : self::TEXT_OFFSET_Y;
+        $name           = Helper::hasArrayProperty('name', $params) ? $params['name'] : '';
+        $description    = Helper::hasArrayProperty('decription', $params) ? $params['decription'] : '';
+        $path           = Helper::hasArrayProperty('path', $params) ? $params['path'] : '';
 
         $shape = new Drawing\File();
         $shape->setName($name)->setDescription($description);
+
+        $shape = new Drawing\File();
+        $shape->setName($name);
+        $shape->setDescription($description);
+        $shape->setPath($path);
+
+        if(!empty($width) && !empty($height)){
+            $shape->setWidthAndHeight($width, $height);
+        }else{
+            $shape->setHeight($height);
+        }
+
+        $shape->setOffsetX($offset_x);
+        $shape->setOffsetY($offset_y);
+        $slide->addShape($shape);
     }
 
     /**
