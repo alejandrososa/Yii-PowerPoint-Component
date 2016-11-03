@@ -12,7 +12,7 @@
             "email": "alesjohnson@hotmail.com"
         }
     ],
-    "minimum-stability": "dev",
+    "minimum-stability": "dev-master",
     "autoload": {
         "classmap": [
             "src/Common/",
