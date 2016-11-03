@@ -4,7 +4,7 @@
     "type": "yii-component",
     "require": {
         "php": ">=5.3.0",
-        "phpoffice/phppresentation": "dev-master"
+        "phpoffice/phppresentation": "^0.7.0"
     },
     "authors": [
         {
@@ -12,6 +12,7 @@
             "email": "alesjohnson@hotmail.com"
         }
     ],
+    "minimum-stability": "dev",
     "autoload": {
         "classmap": [
             "src/Common/",
