@@ -22,5 +22,5 @@ abstract class AbstractObject implements ConstantesPPT
      * @param array $options
      * @return mixed
      */
-    abstract public static function create(Slide $slide, $options = []);
+    abstract public static function create(Slide $slide, $options = array());
 }

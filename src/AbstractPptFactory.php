@@ -28,5 +28,5 @@ abstract class AbstractPptFactory
      * @param array $options
      * @return mixed
      */
-    abstract public static function build($type, Slide $slide, $options = []);
+    abstract public static function build($type, Slide $slide, $options = array());
 }

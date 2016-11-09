@@ -29,7 +29,7 @@ class ObjectsPptFactory extends AbstractPptFactory
      * @param array $options
      * @return mixed
      */
-    public static function build($type, Slide $slide, $options = [])
+    public static function build($type, Slide $slide, $options = array())
     {
         $obj = NULL;
         switch ($type) {

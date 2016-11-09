@@ -31,7 +31,7 @@ class Tables extends AbstractObject
      * @param array $options
      * @return mixed
      */
-    public static function create(Slide $slide, $options = [])
+    public static function create(Slide $slide, $options = array())
     {
         //check if options is only one or multiple
         if (Helper::isArrayMultidimensional($options)) {
@@ -48,19 +48,19 @@ class Tables extends AbstractObject
      * @param Slide $slide
      * @param array $params
      */
-    private function createCustomTable(Slide $slide, $params = [])
+    private function createCustomTable(Slide $slide, $params = array())
     {
         //table
         $height     = Helper::hasArrayProperty('height', $params) ? $params['height'] : self::TEXT_HEIGHT;
         $width      = Helper::hasArrayProperty('width', $params) ? $params['width'] : self::TEXT_WIDTH;
         $offset_x   = Helper::hasArrayProperty('ox', $params) ? $params['ox'] : self::TEXT_OFFSET_X;
         $offset_y   = Helper::hasArrayProperty('oy', $params) ? $params['oy'] : self::TEXT_OFFSET_Y;
-        $row_header = Helper::hasArrayProperty('header', $params) ? $params['header'] : [];
-        $rows       = Helper::hasArrayProperty('rows', $params) ? $params['rows'] : [];
+        $row_header = Helper::hasArrayProperty('header', $params) ? $params['header'] : array();
+        $rows       = Helper::hasArrayProperty('rows', $params) ? $params['rows'] : array();
 
         //header
-        $header_columns     = Helper::hasArrayProperty('columns', $row_header) ? $row_header['columns'] : [];
-        $header_style       = Helper::hasArrayProperty('style', $row_header) ? $row_header['style'] : [];
+        $header_columns     = Helper::hasArrayProperty('columns', $row_header) ? $row_header['columns'] : array();
+        $header_style       = Helper::hasArrayProperty('style', $row_header) ? $row_header['style'] : array();
         $header_background  = Helper::hasArrayProperty('background', $header_style) ? $header_style['background'] : self::COLOR_WHITE;
         $header_text_bold   = Helper::hasArrayProperty('bold', $header_style) ? $header_style['bold'] : false;
         $header_text_size   = Helper::hasArrayProperty('size', $header_style) ? $header_style['size'] : self::TEXT_SIZE;
@@ -83,8 +83,8 @@ class Tables extends AbstractObject
 
         //add the remaining rows
         foreach ($rows as $row) {
-            $texts  = !empty($row['columns']) ? $row['columns'] : [];
-            $style  = !empty($row['style']) ? $row['style'] : [];
+            $texts  = !empty($row['columns']) ? $row['columns'] : array();
+            $style  = !empty($row['style']) ? $row['style'] : array();
             $size   = !empty($style['size']) ? $style['size'] : self::TEXT_SIZE;
             $bold   = !empty($style['bold']) ? $style['bold'] : self::FALSE;
             $color  = !empty($style['color']) ? $style['color'] : self::COLOR_PRIMARY_TEXT;
@@ -128,7 +128,7 @@ class Tables extends AbstractObject
      * @param int $width
      * @param int $height
      */
-    private function makeRow(TBL $table, $texts = [], $size = 10, $bold = false, $color = 'FF000000',
+    private function makeRow(TBL $table, $texts = array(), $size = 10, $bold = false, $color = 'FF000000',
                              $align, $background = 'FFFFFFFF', $width = 100, $height = 20){
 
         $align = !empty($align) ? $align : self::TEXT_ALIGN_HORIZONTAL_CENTER;
@@ -151,7 +151,7 @@ class Tables extends AbstractObject
 
                 //when text has options
                 if (is_array($text) && Helper::isMultiArray($text)) {
-                    $style = Helper::hasArrayProperty('style', $text) ? $text['style'] : [];
+                    $style = Helper::hasArrayProperty('style', $text) ? $text['style'] : array();
                     $_text = Helper::hasArrayProperty('text', $text) ? $text['text'] : '';
                     $_bold = Helper::hasArrayProperty('bold', $style) ? $style['bold'] : $bold;
                     $_size = Helper::hasArrayProperty('size', $style) ? $style['size'] : $size;

@@ -38,7 +38,7 @@ class Charts extends AbstractObject
      * @param array $options
      * @return mixed
      */
-    public static function create(Slide $slide, $options = [])
+    public static function create(Slide $slide, $options = array())
     {
         //check if options is only one or multiple
         if (Helper::isArrayMultidimensional($options)) {
@@ -55,11 +55,11 @@ class Charts extends AbstractObject
      * @param Slide $slide
      * @param array $params
      */
-    private function createCustomChart(Slide $slide, $params = [])
+    private function createCustomChart(Slide $slide, $params = array())
     {
-        $options    = Helper::hasArrayProperty('options', $params) ? $params['options'] : [];
+        $options    = Helper::hasArrayProperty('options', $params) ? $params['options'] : array();
         $title      = Helper::hasArrayProperty('title', $params) ? $params['title'] : '';
-        $data       = Helper::hasArrayProperty('series', $params) ? $params['series'] : [];
+        $data       = Helper::hasArrayProperty('series', $params) ? $params['series'] : array();
         $type       = Helper::hasArrayProperty('type', $options) ? $options['type'] : '';
 
         switch ($type) {
@@ -104,7 +104,7 @@ class Charts extends AbstractObject
      * @param array $series_data
      * @param array $options
      */
-    private function makeBar(Slide $slide, $type_bar, $title = '', $series_data = [], $options = [])
+    private function makeBar(Slide $slide, $type_bar, $title = '', $series_data = array(), $options = array())
     {
         $series_name      = Helper::hasArrayProperty('seriesName', $options) ? $options['seriesName'] : '';
         $show_percent     = Helper::hasArrayProperty('showPercente', $options) ? $options['showPercente'] : true;
@@ -167,7 +167,7 @@ class Charts extends AbstractObject
      * @param array $series_data
      * @param array $options
      */
-    private function makePie(Slide $slide, $type_bar, $title = '', $series_data = [], $options = [])
+    private function makePie(Slide $slide, $type_bar, $title = '', $series_data = array(), $options = array())
     {
         $series_name      = Helper::hasArrayProperty('seriesName', $options) ? $options['seriesName'] : '';
         $show_percent     = Helper::hasArrayProperty('showPercente', $options) ? $options['showPercente'] : true;
@@ -184,7 +184,7 @@ class Charts extends AbstractObject
             $pieChart->setExplosion(20);
 
             //create new serie
-            $options_serie = [];
+            $options_serie = array();
             $options_serie['showPercente']  = $show_percent;
             $options_serie['showName']      = $show_series_name;
             $options_serie['showValue']     = $show_value;
@@ -206,7 +206,7 @@ class Charts extends AbstractObject
      * @param array $series_data
      * @param array $options
      */
-    private function makeScatter(Slide $slide, $title = '', $series_data = [], $options = [])
+    private function makeScatter(Slide $slide, $title = '', $series_data = array(), $options = array())
     {
         $series_name      = Helper::hasArrayProperty('seriesName', $options) ? $options['seriesName'] : '';
         $show_percent     = Helper::hasArrayProperty('showPercente', $options) ? $options['showPercente'] : true;
@@ -225,7 +225,7 @@ class Charts extends AbstractObject
             if (Helper::isArrayMultidimensional($series_data)) {
                 foreach ($series_data as $index => $item) {
                     //create new serie
-                    $options_serie = [];
+                    $options_serie = array();
                     $options_serie['showPercente']  = $show_percent;
                     $options_serie['showName']      = $show_series_name;
                     $options_serie['showValue']     = $show_value;
@@ -237,7 +237,7 @@ class Charts extends AbstractObject
                 }
             } else {
                 //create new serie
-                $options_serie = [];
+                $options_serie = array();
                 $options_serie['showPercente']  = $show_percent;
                 $options_serie['showName']      = $show_series_name;
                 $options_serie['showValue']     = $show_value;
@@ -286,7 +286,7 @@ class Charts extends AbstractObject
      * @param array $options
      * @return Series
      */
-    private function createNewSerie($serie = [], $options = [])
+    private function createNewSerie($serie = array(), $options = array())
     {
         $title      = Helper::hasArrayProperty('title', $options) ? $options['title'] : 'de';
         $color      = Helper::hasArrayProperty('color', $options) ? $options['color'] : '';
@@ -329,7 +329,7 @@ class Charts extends AbstractObject
      * @param $title
      * @param array $options
      */
-    private function createNewShapeChart(Slide $slide, $chart, $title, $options = [])
+    private function createNewShapeChart(Slide $slide, $chart, $title, $options = array())
     {
         $background     = Helper::hasArrayProperty('background', $options) ? $options['background'] : self::COLOR_WHITE;
         $height         = Helper::hasArrayProperty('height', $options) ? $options['height'] : self::CHART_HEIGHT;
@@ -367,13 +367,13 @@ class Charts extends AbstractObject
      * @param array $serie
      * @return array
      */
-    private function convertSeriePercentage($serie = [])
+    private function convertSeriePercentage($serie = array())
     {
         //check if multiple serie
         $check_serie = Helper::isArrayMultidimensional($serie);
         if ($check_serie) {
             //walk all serie
-            $_series = $result = [];
+            $_series = $result = array();
             foreach ($serie as $item) {
                 //set value to percentage
                 $series_sum = array_sum($item);

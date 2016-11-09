@@ -37,13 +37,13 @@ class PowerPoint extends \CApplicationComponent implements ConstantesPPT
      * Configuration options
      * @var array
      */
-    public $options             = [];
+    public $options             = array();
 
     /**
      * Setting slides
      * @var array
      */
-    public $slides              = [];
+    public $slides              = array();
 
     /**
      * Path where file is saved
@@ -67,7 +67,7 @@ class PowerPoint extends \CApplicationComponent implements ConstantesPPT
      * Configuration file
      * @var array
      */
-    private $_fileProperties    = [];
+    private $_fileProperties    = array();
 
     /**
      * Path of file was saved
@@ -79,7 +79,7 @@ class PowerPoint extends \CApplicationComponent implements ConstantesPPT
      * Configuration layout styles
      * @var array
      */
-    private $_paramsLayout      = [];
+    private $_paramsLayout      = array();
 
     /**
      * @var PhpPresentation
@@ -124,7 +124,7 @@ class PowerPoint extends \CApplicationComponent implements ConstantesPPT
         $this->_fileProperties  = Helper::hasArrayProperty('fileProperties', $options) ? $options['fileProperties'] : $this->_fileProperties;
 
         //layout of all slides
-        $this->_paramsLayout    = Helper::hasArrayProperty('layout', $options) ? $options['layout'] : [];
+        $this->_paramsLayout    = Helper::hasArrayProperty('layout', $options) ? $options['layout'] : array();
 
         //path where the file is saved
         $this->_filePath        = $this->_pathDir .'/'. $this->_fileName .'.'. $this->_fileExtension;
@@ -139,7 +139,7 @@ class PowerPoint extends \CApplicationComponent implements ConstantesPPT
      * @param array $slides
      * @return string absolute path of file
      */
-    public function generate($options = [], $slides = [], $download = true)
+    public function generate($options = array(), $slides = array(), $download = true)
     {
         //init vars
         $this->options  = $options;

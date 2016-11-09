@@ -49,7 +49,7 @@ class Helper
      * @param array $array
      * @return bool
      */
-    public static function hasArrayProperty($property, $array = [])
+    public static function hasArrayProperty($property, $array = array())
     {
         return !empty($array) && array_key_exists($property, $array) ? true : false;
     }
@@ -63,7 +63,7 @@ class Helper
     public static function convertStringToArray($string, $delimiter)
     {
         if(empty($string) && empty($delimiter)){
-            return [];
+            return array();
         }
         return explode($delimiter, $string);
     }

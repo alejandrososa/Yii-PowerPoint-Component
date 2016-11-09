@@ -25,7 +25,7 @@ class Texts extends AbstractObject
      * @param array $options
      * @return mixed
      */
-    public static function create(Slide $slide, $options = [])
+    public static function create(Slide $slide, $options = array())
     {
         //check if options is only one or multiple
         if (Helper::isArrayMultidimensional($options)) {
@@ -42,10 +42,10 @@ class Texts extends AbstractObject
      * @param Slide $slide
      * @param array $params
      */
-    private function createCustomText(Slide $slide, $params = [])
+    private function createCustomText(Slide $slide, $params = array())
     {
         $text       = Helper::hasArrayProperty('text', $params) ? $params['text'] : '';
-        $options    = Helper::hasArrayProperty('options', $params) ? $params['options'] : [];
+        $options    = Helper::hasArrayProperty('options', $params) ? $params['options'] : array();
 
         $height     = Helper::hasArrayProperty('height', $options) ? $options['height'] : self::TEXT_HEIGHT;
         $width      = Helper::hasArrayProperty('width', $options) ? $options['width'] : self::TEXT_WIDTH;
