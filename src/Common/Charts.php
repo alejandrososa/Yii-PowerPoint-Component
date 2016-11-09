@@ -267,7 +267,6 @@ class Charts extends AbstractObject
 
     /**
      * Set shadow of shape chart
-     * @param $color
      * @param bool $visible
      * @param int $direction
      * @param int $distance

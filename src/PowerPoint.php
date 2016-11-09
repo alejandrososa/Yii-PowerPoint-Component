@@ -13,7 +13,7 @@ namespace AlejandroSosa\YiiPowerPoint;
 
 use PhpOffice\PhpPresentation\PhpPresentation;
 use PhpOffice\PhpPresentation\IOFactory;
-use PhpOffice\PhpPresentation\Slide\SlideMaster;
+//use PhpOffice\PhpPresentation\Slide\SlideMaster;
 use PhpOffice\PhpPresentation\Style\Color;
 use PhpOffice\PhpPresentation\Shape\Drawing;
 use PhpOffice\PhpPresentation\Slide\Background\Image;
@@ -104,8 +104,8 @@ class PowerPoint extends \CApplicationComponent implements ConstantesPPT
     {
         // Create new PHPPresentation object
         $this->_presentation = new PhpPresentation();
-        $this->_masterSlide = $this->_presentation->getAllMasterSlides()[0];
-        $this->_layoutSlide = $this->_masterSlide->getAllSlideLayouts()[0];
+        //$this->_masterSlide = $this->_presentation->getAllMasterSlides()[0];
+        //$this->_layoutSlide = $this->_masterSlide->getAllSlideLayouts()[0];
     }
 
     /**
@@ -180,7 +180,7 @@ class PowerPoint extends \CApplicationComponent implements ConstantesPPT
             $current_slide = $this->_presentation->getActiveSlide();
 
             //set layout
-            $current_slide->setSlideLayout($this->_layoutSlide);
+            //$current_slide->setSlideLayout($this->_layoutSlide);
             $this->assignBackground();
 
             //create and add objects to current slide
