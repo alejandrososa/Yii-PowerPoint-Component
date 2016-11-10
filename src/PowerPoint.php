@@ -107,9 +107,8 @@ class PowerPoint extends \CApplicationComponent implements ConstantesPPT
 
         // fix need repair when open file
         $masterSlides        = $this->_presentation->getAllMasterSlides();
-        $slides              = $this->_masterSlide->getAllSlideLayouts();
-
         $this->_masterSlide  = $masterSlides[0];
+        $slides              = $this->_masterSlide->getAllSlideLayouts();
         $this->_layoutSlide  = $slides[0];
     }
 
