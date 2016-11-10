@@ -104,8 +104,13 @@ class PowerPoint extends \CApplicationComponent implements ConstantesPPT
     {
         // Create new PHPPresentation object
         $this->_presentation = new PhpPresentation();
-        //$this->_masterSlide = $this->_presentation->getAllMasterSlides()[0];
-        //$this->_layoutSlide = $this->_masterSlide->getAllSlideLayouts()[0];
+
+        // fix need repair when open file
+        $masterSlides        = $this->_presentation->getAllMasterSlides();
+        $slides              = $this->_masterSlide->getAllSlideLayouts();
+
+        $this->_masterSlide  = $masterSlides[0];
+        $this->_layoutSlide  = $slides[0];
     }
 
     /**
@@ -180,7 +185,7 @@ class PowerPoint extends \CApplicationComponent implements ConstantesPPT
             $current_slide = $this->_presentation->getActiveSlide();
 
             //set layout
-            //$current_slide->setSlideLayout($this->_layoutSlide);
+            $current_slide->setSlideLayout($this->_layoutSlide);
             $this->assignBackground();
 
             //create and add objects to current slide
