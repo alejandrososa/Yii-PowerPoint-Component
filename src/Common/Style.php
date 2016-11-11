@@ -49,7 +49,7 @@ class Style implements ConstantesPPT
      * @param bool $bold
      * @param string $color
      */
-    public static function setStyleText(Run $text, $size = 10, $bold = false, $color = 'FF000000')
+    public static function setStyleText(Run $text, $size = 10, $bold = false, $color = self::COLOR_PRIMARY_TEXT)
     {
         if($text instanceof Run) {
             $text->getFont()->setBold($bold);
@@ -97,7 +97,7 @@ class Style implements ConstantesPPT
      * @param Cell $column
      * @param string $color
      */
-    public static function setBackgroundColumn(Cell $column, $color = 'FF000000')
+    public static function setBackgroundColumn(Cell $column, $color = self::COLOR_WHITE)
     {
         if($column instanceof Cell) {
             $column->getFill()
@@ -113,7 +113,7 @@ class Style implements ConstantesPPT
      * @param string $color
      * @param int $width
      */
-    public static function setBorderColumn(Cell $column, $color = 'FFFFFFFF', $width = 1)
+    public static function setBorderColumn(Cell $column, $color = self::COLOR_BLACK, $width = 1)
     {
         if($column instanceof Cell){
             $column->getBorders()->getBottom()->setColor(new Color($color))->setLineWidth($width);

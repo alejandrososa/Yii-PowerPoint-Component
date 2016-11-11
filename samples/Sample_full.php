@@ -196,7 +196,8 @@ $slides = [
                     ],
                 'options'=>[
                     'type'=>PowerPoint::CHART_TYPE_BAR, 'seriesName'=> ['2014', '2015', '2016'], 'showSeriesName'=> false,
-                    'titleItalic' => true, 'legendItalic' => true,
+                    'legendItalic' => true, 'legendOx'=> 20,'legendOy'=> 20,
+                    'titleItalic' => true,
                     'height'=>234, 'width'=>450, 'ox'=>18, 'oy'=>117
                 ]
             ],
@@ -205,7 +206,8 @@ $slides = [
                 'series'=> ['Monday' => 12, 'Tuesday' => 15, 'Wednesday' => 13, 'Thursday' => 17, 'Friday' => 14, 'Saturday' => 9],
                 'options'=>[
                     'type'=>PowerPoint::CHART_TYPE_BAR, 'seriesName'=> ['2009', '2010'], 'showSeriesName'=> false,
-                    'titleItalic' => true, 'legendItalic' => true,
+                    'legendItalic' => true, 'legendOx'=> 20,'legendOy'=> 20, 'legendBackground'=>PowerPoint::COLOR_AMBER,
+                    'titleItalic' => true, 'background' => PowerPoint::COLOR_BLUE,
                     'height'=>234, 'width'=>450, 'ox'=>487, 'oy'=>117
                 ]
             ],
@@ -218,7 +220,7 @@ $slides = [
                     ],
                 'options'=>[
                     'type'=>PowerPoint::CHART_TYPE_BAR, 'seriesName'=> ['2009', '2010'], 'showSeriesName'=> false,
-                    'titleItalic' => true, 'legendItalic' => true,
+                    'titleItalic' => true, 'legendItalic' => true, 'legendVisible' => false,
                     'height'=>234, 'width'=>450, 'ox'=>18, 'oy'=>367
                 ]
             ],

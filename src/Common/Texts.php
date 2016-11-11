@@ -53,7 +53,7 @@ class Texts extends AbstractObject
         $offset_y   = Helper::hasArrayProperty('oy', $options) ? $options['oy'] : self::TEXT_OFFSET_Y;
         $align      = Helper::hasArrayProperty('align', $options) ? $options['align'] : self::TEXT_ALIGN_HORIZONTAL_CENTER;
         $bold       = Helper::hasArrayProperty('bold', $options) ? $options['bold'] : false;
-        $color      = Helper::hasArrayProperty('color', $options) ? $options['color'] : self::DEFAULT_COLOR;
+        $color      = Helper::hasArrayProperty('color', $options) ? $options['color'] : self::COLOR_PRIMARY_TEXT;
         $size       = Helper::hasArrayProperty('size', $options) ? $options['size'] : self::TEXT_SIZE;
 
         $current_slide = $slide;

@@ -448,34 +448,34 @@ class Charts extends AbstractObject
     {
         $obj = null;
         switch ($type){
-            case SYMBOL_CIRCLE:
+            case self::SYMBOL_CIRCLE:
                 $obj = Marker::SYMBOL_CIRCLE;
                 break;
-            case SYMBOL_DASH:
+            case self::SYMBOL_DASH:
                 $obj = Marker::SYMBOL_DASH;
                 break;
-            case SYMBOL_DIAMOND:
+            case self::SYMBOL_DIAMOND:
                 $obj = Marker::SYMBOL_DIAMOND;
                 break;
-            case SYMBOL_DOT:
+            case self::SYMBOL_DOT:
                 $obj = Marker::SYMBOL_DOT;
                 break;
-            case SYMBOL_NONE:
+            case self::SYMBOL_NONE:
                 $obj = Marker::SYMBOL_NONE;
                 break;
-            case SYMBOL_PLUS:
+            case self::SYMBOL_PLUS:
                 $obj = Marker::SYMBOL_PLUS;
                 break;
-            case SYMBOL_SQUARE:
+            case self::SYMBOL_SQUARE:
                 $obj = Marker::SYMBOL_SQUARE;
                 break;
-            case SYMBOL_STAR:
+            case self::SYMBOL_STAR:
                 $obj = Marker::SYMBOL_STAR;
                 break;
-            case SYMBOL_TRIANGLE:
+            case self::SYMBOL_TRIANGLE:
                 $obj = Marker::SYMBOL_TRIANGLE;
                 break;
-            case SYMBOL_X:
+            case self::SYMBOL_X:
                 $obj = Marker::SYMBOL_X;
                 break;
             default: $obj = Marker::SYMBOL_DOT;

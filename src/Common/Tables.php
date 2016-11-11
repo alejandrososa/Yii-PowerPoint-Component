@@ -64,7 +64,7 @@ class Tables extends AbstractObject
         $header_background  = Helper::hasArrayProperty('background', $header_style) ? $header_style['background'] : self::COLOR_WHITE;
         $header_text_bold   = Helper::hasArrayProperty('bold', $header_style) ? $header_style['bold'] : false;
         $header_text_size   = Helper::hasArrayProperty('size', $header_style) ? $header_style['size'] : self::TEXT_SIZE;
-        $header_text_color  = Helper::hasArrayProperty('color', $header_style) ? $header_style['color'] : self::DEFAULT_COLOR;
+        $header_text_color  = Helper::hasArrayProperty('color', $header_style) ? $header_style['color'] : self::COLOR_PRIMARY_TEXT;
         $header_text_align  = Helper::hasArrayProperty('align', $header_style) ? $header_style['align'] : self::TEXT_ALIGN_HORIZONTAL_CENTER;
         $header_width       = Helper::hasArrayProperty('width', $header_style) ? $header_style['width'] : 100;
         $header_height      = Helper::hasArrayProperty('height', $header_style) ? $header_style['height'] : 20;
