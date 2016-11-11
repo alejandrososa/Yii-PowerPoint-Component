@@ -82,6 +82,7 @@ interface ConstantesPPT
     const COLOR_DIVIDER                         = 'FFBDBDBD';
     const COLOR_PRIMARY_TEXT                    = 'FF212121';
     const COLOR_SECONDARY_TEXT                  = 'FF757575';
+    const COLOR_NONE                            = 'none';
 
     //SYMBOLS
     const SYMBOL_CIRCLE                         = 'circle';

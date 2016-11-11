@@ -134,7 +134,7 @@ class Charts extends AbstractObject
                     $options_serie['showName']      = $show_series_name;
                     $options_serie['showValue']     = $show_value;
                     $options_serie['title']         = is_array($series_name) && !empty($series_name[$index])
-                                                        ? $series_name[$index] : '';
+                        ? $series_name[$index] : '';
                     $serie = self::createNewSerie($item, $options_serie);
 
                     //add serie to barChart
@@ -159,7 +159,7 @@ class Charts extends AbstractObject
             self::createNewShapeChart($slide, $barChart, $title, $options);
         }
     }
-    
+
     /**
      * Make chart Pie
      * @param Slide $slide
@@ -262,7 +262,14 @@ class Charts extends AbstractObject
     private function getFill($color = self::COLOR_WHITE)
     {
         $oFill = new Fill();
-        return $oFill->setFillType(Fill::FILL_SOLID)->setStartColor(new Color($color));
+
+        if($color == self::COLOR_NONE){
+            $oFill->setFillType(Fill::FILL_NONE)->setStartColor(new Color($color));
+        }else{
+            $oFill->setFillType(Fill::FILL_SOLID)->setStartColor(new Color($color));
+        }
+
+        return $oFill;
     }
 
     /**
@@ -330,7 +337,7 @@ class Charts extends AbstractObject
      */
     private function createNewShapeChart(Slide $slide, $chart, $title, $options = array())
     {
-        $background     = Helper::hasArrayProperty('background', $options) ? $options['background'] : self::COLOR_WHITE;
+        $background     = Helper::hasArrayProperty('background', $options) ? $options['background'] : self::COLOR_NONE;
         $height         = Helper::hasArrayProperty('height', $options) ? $options['height'] : self::CHART_HEIGHT;
         $width          = Helper::hasArrayProperty('width', $options) ? $options['width'] : self::CHART_WIDTH;
         $offset_x       = Helper::hasArrayProperty('ox', $options) ? $options['ox'] : self::CHART_OFFSET_X;
@@ -338,6 +345,11 @@ class Charts extends AbstractObject
         $title_italic   = Helper::hasArrayProperty('titleItalic', $options) ? $options['titleItalic'] : false;
         $legend_italic  = Helper::hasArrayProperty('legendItalic', $options) ? $options['legendItalic'] : false;
         $r_angle_axes   = Helper::hasArrayProperty('angleAxes', $options) ? $options['angleAxes'] : false;
+        $legend_offset_x= Helper::hasArrayProperty('legendOx', $options) ? $options['legendOx'] : self::CHART_OFFSET_X;
+        $legend_offset_y= Helper::hasArrayProperty('legendOy', $options) ? $options['legendOy'] : self::CHART_OFFSET_Y;
+        $legend_bg      = Helper::hasArrayProperty('legendBackground', $options) ? $options['legendBackground'] : self::COLOR_NONE;
+        $legend_visible = Helper::hasArrayProperty('legendVisible', $options) ? $options['legendVisible'] : self::TRUE;
+
 
         //add background, border and shadow
         $oFill          = self::getFill($background);
@@ -359,6 +371,16 @@ class Charts extends AbstractObject
         $shape->getView3D()->setPerspective(30);
         $shape->getLegend()->getBorder()->setLineStyle(Border::LINE_NONE);
         $shape->getLegend()->getFont()->setItalic($legend_italic);
+        $shape->getLegend()->setOffsetX($legend_offset_x);
+        $shape->getLegend()->getOffsetY($legend_offset_y);
+        $shape->getLegend()->setVisible($legend_visible);
+
+        //bg legend
+        if ($legend_bg == self::COLOR_NONE){
+            $shape->getLegend()->getFill()->setFillType(Fill::FILL_NONE)->setStartColor(new Color($legend_bg));
+        }else{
+            $shape->getLegend()->getFill()->setFillType(Fill::FILL_SOLID)->setStartColor(new Color($legend_bg));
+        }
     }
 
     /**
@@ -457,7 +479,7 @@ class Charts extends AbstractObject
                 $obj = Marker::SYMBOL_X;
                 break;
             default: $obj = Marker::SYMBOL_DOT;
-         }
+        }
         return $obj;
     }
 }
