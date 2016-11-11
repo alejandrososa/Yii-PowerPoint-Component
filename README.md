@@ -1,7 +1,7 @@
 Yii PowerPoint Component
 ========================
 
-Yii PowerPoint - Create and write presentations, with slides; slides are made up of text, images in PHP
+Yii PowerPoint - Create and write presentations slides with texts, images, tables and charts dynamically in PHP.
 
 QUICK START
 -----------
