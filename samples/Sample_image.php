@@ -53,7 +53,7 @@ $slides = [
                 ],
             ],
         ],
-        'charts' => [
+        'images' => [
             [
                 'options'=>[
                     'path'=> '', 'name'=> '', 'decription'=> '',

@@ -32,7 +32,7 @@ $slides = [
                 'text'=>Yii::t('app', 'Delivery'),
                 'options'=>[
                     'height'=>82, 'width'=>816, 'ox'=>72, 'oy'=>170,
-                    'bold'=> true, 'size'=>44, 'color'=>'00000000',
+                    'bold'=> true, 'size'=>44, 'color'=>PowerPoint::COLOR_BLUE,
                     'align'=>PowerPoint::TEXT_ALIGN_HORIZONTAL_CENTER,
                 ],
             ],
@@ -41,7 +41,7 @@ $slides = [
                 'options'=>[
                     'height'=>82, 'width'=>816,
                     'ox'=>72, 'oy'=>291,
-                    'bold'=> false, 'size'=>40, 'color'=>'00000000',
+                    'bold'=> false, 'size'=>40, 'color'=>PowerPoint::COLOR_DEEP_PURPLE,
                     'align'=>PowerPoint::TEXT_ALIGN_HORIZONTAL_CENTER,
                 ],
             ],

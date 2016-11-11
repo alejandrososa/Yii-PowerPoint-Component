@@ -180,21 +180,17 @@ SETTINGS OF CHARTS
 |showValue|Displays the values of the data series, default is true | boolean |
 |showSymbol|Show symbol in data series, default is true. Only in Scatter | boolean |
 |typeSymbol|Show symbol in data series, default is true. Only in Scatter | boolean |
-|bold|Bold text| boolean, default is false |
-|color|Text color| string, default is COLOR_PRIMARY_TEXT. You can access the constants from PowerPoint::COLOR_BLUE |
-|size|Text size, default is 14 | integer |
+|titleItalic|Title in italic format, default is false.| boolean |
+|legendItalic|Title of legend in italic format, default is false.| boolean |
+|legendBackground|Background color of legend| string, default is none. You can access the constants from PowerPoint::COLOR_WHITE |
+|legendVisible|Show legend of data series, default is true. | boolean |
+|legendOx|X coordinate of legend, horizontal position on the chart| integer |
+|legendOy|Y coordinate of legend, vertical position on the chart| integer |
 
-Available the following type charts: CHART_TYPE_BAR, CHART_TYPE_BAR_HORIZONTAL, CHART_TYPE_BAR_STACKED, CHART_TYPE_BAR_PERCENT_STACKED, CHART_TYPE_BAR_3D, CHART_TYPE_PIE, CHART_TYPE_PIE_3D, CHART_TYPE_SCATTER 
-Available the following symbols in scatter: SYMBOL_CIRCLE, SYMBOL_DASH, SYMBOL_DIAMOND, SYMBOL_DOT, SYMBOL_NONE, SYMBOL_PLUS, SYMBOL_SQUARE, SYMBOL_STAR, SYMBOL_TRIANGLE, SYMBOL_X        
+Available the following type charts: CHART_TYPE_BAR, CHART_TYPE_BAR_HORIZONTAL, CHART_TYPE_BAR_STACKED, CHART_TYPE_BAR_PERCENT_STACKED, CHART_TYPE_BAR_3D, CHART_TYPE_PIE, CHART_TYPE_PIE_3D, CHART_TYPE_SCATTER.
+ 
+Available the following symbols in scatter: SYMBOL_CIRCLE, SYMBOL_DASH, SYMBOL_DIAMOND, SYMBOL_DOT, SYMBOL_NONE, SYMBOL_PLUS, SYMBOL_SQUARE, SYMBOL_STAR, SYMBOL_TRIANGLE, SYMBOL_X. 
 
-
-CHART_TYPE_BAR, CHART_TYPE_BAR_HORIZONTAL, CHART_TYPE_BAR_STACKED, CHART_TYPE_BAR_PERCENT_STACKED, CHART_TYPE_BAR_3D, CHART_TYPE_PIE, CHART_TYPE_PIE_3D, CHART_TYPE_SCATTER 
-
-
-'type'=>PowerPoint::CHART_TYPE_BAR, 'seriesName'=> ['2014', '2015', '2016'], 'showSeriesName'=> false,
-                    'titleItalic' => true, 'legendItalic' => true,
-                    'height'=>234, 'width'=>450, 'ox'=>18, 'oy'=>117
-                    
                     
 OTHER EXAMPLES    
 --------------
