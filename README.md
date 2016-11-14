@@ -1,7 +1,9 @@
 Yii PowerPoint Component
 ========================
 
-Yii PowerPoint - Create and write presentations slides with texts, images, tables and charts dynamically in PHP.
+Yii PowerPoint - Create and write presentations, with slides; slides are made up of text, images in PHP
+
+[![Build Status](https://travis-ci.org/alejandrososa/Yii-PowerPoint-Component.svg?branch=master)](https://travis-ci.org/alejandrososa/Yii-PowerPoint-Component)
 
 QUICK START
 -----------
@@ -157,6 +159,8 @@ SETTINGS OF CHARTS
 |bold|Bold text of column| boolean, default is false |
 |color|Text color of column| string, default is COLOR_PRIMARY_TEXT. You can access the constants from PowerPoint::COLOR_BLUE |
 |size|Text size of column, default is 14 | integer |
+|borderWidth|Border width of column, default is 1 | integer |
+|borderColor|Border color of column, default is COLOR_GREY. You can access the constants from PowerPoint::COLOR_WHITE | string |
 |**rows**   |Row that represents the header of the table, array with the columns it contains| array |
 |columns   |Array of columns, contains text and column style or only text| array or string|
 |**style**| Like the header, you can use the style properties in the rows at the general level for all rows | array |

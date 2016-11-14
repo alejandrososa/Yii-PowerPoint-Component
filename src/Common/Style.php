@@ -113,7 +113,7 @@ class Style implements ConstantesPPT
      * @param string $color
      * @param int $width
      */
-    public static function setBorderColumn(Cell $column, $color = self::COLOR_BLACK, $width = 1)
+    public static function setBorderColumn(Cell $column, $color = self::COLOR_GREY, $width = 1)
     {
         if($column instanceof Cell){
             $column->getBorders()->getBottom()->setColor(new Color($color))->setLineWidth($width);

@@ -128,8 +128,8 @@ class Tables extends AbstractObject
      * @param int $width
      * @param int $height
      */
-    private function makeRow(TBL $table, $texts = array(), $size = 10, $bold = false, $color = 'FF000000',
-                             $align, $background = 'FFFFFFFF', $width = 100, $height = 20){
+    private function makeRow(TBL $table, $texts = array(), $size = 10, $bold = false, $color = self::COLOR_PRIMARY_TEXT,
+                             $align, $background = self::COLOR_WHITE, $width = 100, $height = 20){
 
         $align = !empty($align) ? $align : self::TEXT_ALIGN_HORIZONTAL_CENTER;
 
@@ -146,19 +146,18 @@ class Tables extends AbstractObject
             foreach ($texts as $text) {
                 $current_column = $row->nextCell();
 
-                //set borders
-                Style::setBorderColumn($current_column);
-
                 //when text has options
                 if (is_array($text) && Helper::isMultiArray($text)) {
-                    $style = Helper::hasArrayProperty('style', $text) ? $text['style'] : array();
-                    $_text = Helper::hasArrayProperty('text', $text) ? $text['text'] : '';
-                    $_bold = Helper::hasArrayProperty('bold', $style) ? $style['bold'] : $bold;
-                    $_size = Helper::hasArrayProperty('size', $style) ? $style['size'] : $size;
+                    $style  = Helper::hasArrayProperty('style', $text) ? $text['style'] : array();
+                    $_text  = Helper::hasArrayProperty('text', $text) ? $text['text'] : '';
+                    $_bold  = Helper::hasArrayProperty('bold', $style) ? $style['bold'] : $bold;
+                    $_size  = Helper::hasArrayProperty('size', $style) ? $style['size'] : $size;
                     $_color = Helper::hasArrayProperty('color', $style) ? $style['color'] : $color;
                     $_align = Helper::hasArrayProperty('align', $style) ? $style['align'] : $align;
                     $_width = Helper::hasArrayProperty('width', $style) ? $style['width'] : $width;
-                    $_bkg = Helper::hasArrayProperty('background', $style) ? $style['background'] : $background;
+                    $_bdr_w = Helper::hasArrayProperty('borderWidth', $style) ? $style['borderWidth'] : $width;
+                    $_bdr_c = Helper::hasArrayProperty('borderColor', $style) ? $style['borderColor'] : $width;
+                    $_bkg   = Helper::hasArrayProperty('background', $style) ? $style['background'] : $background;
 
                     //set style text
                     $current_text = $current_column->createTextRun($_text);
@@ -173,6 +172,9 @@ class Tables extends AbstractObject
 
                     //set width
                     Style::setWidthColumn($current_column, $_width);
+
+                    //set borders
+                    Style::setBorderColumn($current_column, $_bdr_c, $_bdr_w);
                 } else {
                     //whe text not have options
                     //set style text
