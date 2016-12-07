@@ -174,10 +174,13 @@ SETTINGS OF CHARTS
 |---|---|---|
 |**title**   |Title of chart| string |
 |**series**| Array of data series composed of key and value array('2015'=>150) | array(string=>integer) |
+|**seriesTrends**| Array of data series trends composed of key and value array('2015'=>150) | array(string=>integer) |
 |**options**| Includes the following properties| array |
 |type|Type of chart to create | string, you can access the constants from PowerPoint::TEXT_ALIGN_HORIZONTAL_CENTER |
 |seriesName|Names of the data series, the name quantity must be equal to the number of data series| array |
+|trendsName|Names of the data series trends, the name quantity must be equal to the number of data series| array |
 |showSeriesName|Visibility of data series names, default is true | array |
+|showTrendsName|Visibility of data series trends names, default is true | array |
 |showPercente|Displays the percentages of the data series, default is true | boolean |
 |showValue|Displays the values of the data series, default is true | boolean |
 |showSymbol|Show symbol in data series, default is true. Only in Scatter | boolean |
@@ -189,7 +192,7 @@ SETTINGS OF CHARTS
 |legendOx|X coordinate of legend, horizontal position on the chart| integer |
 |legendOy|Y coordinate of legend, vertical position on the chart| integer |
 
-Available the following type charts: CHART_TYPE_BAR, CHART_TYPE_BAR_HORIZONTAL, CHART_TYPE_BAR_STACKED, CHART_TYPE_BAR_PERCENT_STACKED, CHART_TYPE_BAR_3D, CHART_TYPE_PIE, CHART_TYPE_PIE_3D, CHART_TYPE_SCATTER.
+Available the following type charts: CHART_TYPE_BAR, CHART_TYPE_BAR_HORIZONTAL, CHART_TYPE_BAR_STACKED, CHART_TYPE_BAR_PERCENT_STACKED, CHART_TYPE_BAR_3D, CHART_TYPE_BAR_TRENDLINE, CHART_TYPE_PIE, CHART_TYPE_PIE_3D, CHART_TYPE_SCATTER.
  
 Available the following symbols in scatter: SYMBOL_CIRCLE, SYMBOL_DASH, SYMBOL_DIAMOND, SYMBOL_DOT, SYMBOL_NONE, SYMBOL_PLUS, SYMBOL_SQUARE, SYMBOL_STAR, SYMBOL_TRIANGLE, SYMBOL_X. 
 

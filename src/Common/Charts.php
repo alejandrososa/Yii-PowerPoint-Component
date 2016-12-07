@@ -61,6 +61,8 @@ class Charts extends AbstractObject
         $title      = Helper::hasArrayProperty('title', $params) ? $params['title'] : '';
         $data       = Helper::hasArrayProperty('series', $params) ? $params['series'] : array();
         $type       = Helper::hasArrayProperty('type', $options) ? $options['type'] : '';
+        $dataTrends = Helper::hasArrayProperty('seriesTrends', $params) ? $params['seriesTrends'] : array();
+
 
         switch ($type) {
             case self::CHART_TYPE_AREA:
@@ -82,6 +84,9 @@ class Charts extends AbstractObject
                 break;
             case self::CHART_TYPE_BAR_3D:
                 self::makeBar($slide, self::CHART_TYPE_BAR_3D, $title, $data, $options);
+                break;
+            case self::CHART_TYPE_BAR_TRENDLINE:
+                self::makeBarTrendLine($slide, $title, $data, $dataTrends, $options);
                 break;
             case self::CHART_TYPE_PIE:
                 self::makePie($slide, self::CHART_TYPE_PIE, $title, $data, $options);
@@ -157,6 +162,89 @@ class Charts extends AbstractObject
 
             // Create a shape (chart)
             self::createNewShapeChart($slide, $barChart, $title, $options);
+        }
+    }
+
+    /**
+     * Make chart Bar Trend Line
+     * @param Slide $slide
+     * @param string $title
+     * @param array $series_data
+     * @param array $series_data_trend
+     * @param array $options
+     */
+    private function makeBarTrendLine(Slide $slide, $title = '', $series_data = array(),
+                                      $series_data_trend = array(), $options = array() )
+    {
+        $series_name        = Helper::hasArrayProperty('seriesName', $options) ? $options['seriesName'] : '';
+        $trends_name        = Helper::hasArrayProperty('trendsName', $options) ? $options['trendsName'] : '';
+        $show_percent       = Helper::hasArrayProperty('showPercente', $options) ? $options['showPercente'] : true;
+        $show_value         = Helper::hasArrayProperty('showValue', $options) ? $options['showValue'] : true;
+        $show_trend_value   = Helper::hasArrayProperty('showTrendValue', $options) ? $options['showTrendValue'] : true;
+        $show_series_name   = Helper::hasArrayProperty('showSeriesName', $options) ? $options['showSeriesName'] : true;
+        $show_trend_name    = Helper::hasArrayProperty('showTrendsName', $options) ? $options['showTrendsName'] : true;
+        $show_symbol        = Helper::hasArrayProperty('showSymbol', $options) ? $options['showSymbol'] : true;
+        $type_symbol        = Helper::hasArrayProperty('typeSymbol', $options) ? $options['typeSymbol'] : '';
+
+        if ($slide instanceof Slide) {
+            // create a bar chart (that should be inserted in a shape)
+            $barChart =  new Bar();
+
+            //create a line chart
+            $lineChart = new Line();
+            $options_serie['showSymbol']    = $show_symbol;
+            $options_serie['typeSymbol']    = $type_symbol;
+
+            //generate chart graph bar
+            if (Helper::isArrayMultidimensional($series_data)) {
+                foreach ($series_data as $index => $item) {
+                    //create new serie
+                    $options_serie['showPercente']  = $show_percent;
+                    $options_serie['showName']      = $show_series_name;
+                    $options_serie['showValue']     = $show_value;
+                    $options_serie['title']         = is_array($series_name) && !empty($series_name[$index])
+                        ? $series_name[$index] : '';
+                    $serie = self::createNewSerie($item, $options_serie);
+                    //add serie to barChart
+                    $barChart->addSeries($serie);
+                }
+            } else {
+
+                $options_serie['showPercente']  = $show_percent;
+                $options_serie['showName']      = $show_series_name;
+                $options_serie['showValue']     = $show_value;
+                $options_serie['title']         = is_array($series_name) ? $series_name[0] : $series_name;
+                $serie                          = self::createNewSerie($series_data, $options_serie);
+                //add serie to barChart
+                $barChart->addSeries($serie);
+            }
+
+            //generate trends
+            if (Helper::isArrayMultidimensional($series_data_trend)) {
+                foreach ($series_data_trend as $index => $item) {
+                    $options_serie['showValue']     = $show_trend_value;
+                    $options_serie['showPercente']  = $show_percent;
+                    $options_serie['showName']      = $show_trend_name;
+                    $options_serie['title']         = is_array($trends_name) && !empty($trends_name[$index])
+                        ? $trends_name[$index] : '';
+                    $serie_trends                   = self::createNewSerie($item, $options_serie);
+                    //add serie to scatter
+                    $lineChart->addSeries($serie_trends);
+                }
+            } else {
+                //create new serie
+                $options_serie['showValue']     = $show_trend_value;
+                $options_serie['showPercente']  = $show_percent;
+                $options_serie['showName']      = $show_trend_name;
+                $options_serie['title']         = is_array($trends_name) ? $trends_name[0] : $trends_name;
+                $serie_trends                   = self::createNewSerie($series_data_trend, $options_serie);
+                //add serie to line
+                $lineChart->addSeries($serie_trends);
+            }
+
+            //set type of bar
+            self::setTypeBar($barChart, 'bar');
+            self::createBarTrendlineChart($slide, $barChart, $lineChart,  $title, $options);
         }
     }
 

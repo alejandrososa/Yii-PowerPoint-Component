@@ -52,6 +52,7 @@ interface ConstantesPPT
     const CHART_TYPE_BAR_STACKED                = 'barStacked';
     const CHART_TYPE_BAR_PERCENT_STACKED        = 'barPercentStacked';
     const CHART_TYPE_BAR_3D                     = 'bar3D';
+    const CHART_TYPE_BAR_TRENDLINE              = 'barTrendline';
     const CHART_TYPE_LINE                       = 'line';
     const CHART_TYPE_PIE                        = 'pie';
     const CHART_TYPE_PIE_3D                     = 'pie3D';
