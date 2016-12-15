@@ -472,6 +472,78 @@ class Charts extends AbstractObject
     }
 
     /**
+     * Create shape trend line chart
+     * @param Slide $slide
+     * @param $chart1
+     * @param $chart2
+     * @param $title
+     * @param array $options
+     */
+    private function createBarTrendlineChart(Slide $slide, $chart1, $chart2, $title, $options = array())
+    {
+        $background     = Helper::hasArrayProperty('background', $options) ? $options['background'] : self::COLOR_NONE;
+        $height         = Helper::hasArrayProperty('height', $options) ? $options['height'] : self::CHART_HEIGHT;
+        $width          = Helper::hasArrayProperty('width', $options) ? $options['width'] : self::CHART_WIDTH;
+        $offset_x       = Helper::hasArrayProperty('ox', $options) ? $options['ox'] : self::CHART_OFFSET_X;
+        $offset_y       = Helper::hasArrayProperty('oy', $options) ? $options['oy'] : self::CHART_OFFSET_Y;
+        $title_italic   = Helper::hasArrayProperty('titleItalic', $options) ? $options['titleItalic'] : false;
+        $legend_italic  = Helper::hasArrayProperty('legendItalic', $options) ? $options['legendItalic'] : false;
+        $r_angle_axes   = Helper::hasArrayProperty('angleAxes', $options) ? $options['angleAxes'] : false;
+        $legend_offset_x= Helper::hasArrayProperty('legendOx', $options) ? $options['legendOx'] : self::CHART_OFFSET_X;
+        $legend_offset_y= Helper::hasArrayProperty('legendOy', $options) ? $options['legendOy'] : self::CHART_OFFSET_Y;
+        $legend_position = Helper::hasArrayProperty('legendPosition', $options) ? $options['legendPosition'] : self::TEXT_ALIGN_VERTICAL_BOTTOM;
+
+        $oShadow = new Shadow();
+        $oShadow->setVisible(true)->setDirection(45)->setDistance(10);
+        $shiftOffset=40;
+        //shape to see the legend of chart2
+        $shape = $slide->createChartShape();
+        $shape->setName($title)->setResizeProportional(false)->setHeight($height + $shiftOffset + $shiftOffset)
+            ->setWidth($width)->setOffsetX($offset_x)->setOffsetY($offset_y - $shiftOffset - $shiftOffset);
+        $shape->getFill()->setFillType( Fill::FILL_SOLID )->setStartColor( new Color( self::COLOR_WHITE ) );
+        $shape->getTitle()->setText($title);
+        $shape->getTitle()->getFont()->setItalic($title_italic);
+        $shape->getTitle()->getFont()->setBold(true);
+        $shape->getPlotArea()->setType($chart2);
+        $shape->getView3D()->setRightAngleAxes($r_angle_axes);
+        $shape->getView3D()->setRotationX(30);
+        $shape->getView3D()->setPerspective(30);
+        $shape->getLegend()->getBorder()->setLineStyle(Border::LINE_NONE);
+        $shape->getLegend()->getFont()->setItalic($legend_italic);
+        $shape->getLegend()->setOffsetX($legend_offset_x);
+        $shape->getLegend()->setOffsetY($legend_offset_y);
+        $shape->getLegend()->setVisible(true);
+        $shape->getLegend()->setPosition($legend_position);
+        //shape to see the legend of chart1
+        $shape2 =clone($shape);
+        // $offset_y=$offset_y-$shiftOffset;
+        $shape2->setName('')->setResizeProportional(false)->setHeight($height + $shiftOffset)
+            ->setWidth($width)->setOffsetX($offset_x)->setOffsetY($offset_y - $shiftOffset - $shiftOffset);
+        $shape2->getPlotArea()->setType($chart1);
+        $shape2->getLegend()->setPosition($legend_position);
+        $shape2->getLegend()->setVisible(true);
+        $slide->addShape($shape2);
+        //shape to see the legend of chart1
+        $shape3 =clone($shape);
+        $shape3->setName('')->setResizeProportional(false)->setHeight($height)->setWidth($width)->setOffsetX($offset_x)
+            ->setOffsetY($offset_y - $shiftOffset - $shiftOffset);
+        $shape3->getPlotArea()->setType($chart1);
+        $shape3->getLegend()->setPosition($legend_position);
+        $shape3->getLegend()->setVisible(false);
+        $slide->addShape($shape3);
+        //display graph of chart2 overlapping chart1
+        $shape4 =clone($shape);
+        $shape4->setName('')->setResizeProportional(false)->setHeight($height)->setWidth($width)
+            ->setOffsetX($offset_x)->setOffsetY($offset_y - $shiftOffset - $shiftOffset);
+        $shape4->getFill()->setFillType($background);
+        $shape4->getPlotArea()->setType($chart2);
+        $shape4->getLegend()->setPosition($legend_position);
+        $shape4->getLegend()->setVisible(false);
+        $slide->addShape($shape4); 
+
+    }
+
+    /**
      * Convert values from serie to percentage
      * @param array $serie
      * @return array
