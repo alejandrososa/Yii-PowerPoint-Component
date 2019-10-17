@@ -42,7 +42,7 @@ class Texts extends AbstractObject
      * @param Slide $slide
      * @param array $params
      */
-    private function createCustomText(Slide $slide, $params = array())
+    private static function createCustomText(Slide $slide, $params = array())
     {
         $text       = Helper::hasArrayProperty('text', $params) ? $params['text'] : '';
         $options    = Helper::hasArrayProperty('options', $params) ? $params['options'] : array();
