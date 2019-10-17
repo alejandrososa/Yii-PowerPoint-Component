@@ -48,7 +48,7 @@ class Tables extends AbstractObject
      * @param Slide $slide
      * @param array $params
      */
-    private function createCustomTable(Slide $slide, $params = array())
+    private static function createCustomTable(Slide $slide, $params = array())
     {
         //table
         $height     = Helper::hasArrayProperty('height', $params) ? $params['height'] : self::TEXT_HEIGHT;
