@@ -104,7 +104,7 @@ class Tables extends AbstractObject
      * @param $offset_y
      * @return TBL
      */
-    private function makeTable(Slide $slide, $col_total, $height, $width, $offset_x, $offset_y)
+    private static function makeTable(Slide $slide, $col_total, $height, $width, $offset_x, $offset_y)
     {
         if($slide instanceof Slide) {
             $shape = $slide->createTableShape($col_total);
@@ -128,7 +128,7 @@ class Tables extends AbstractObject
      * @param int $width
      * @param int $height
      */
-    private function makeRow(TBL $table, $texts = array(), $size = 10, $bold = false, $color = self::COLOR_PRIMARY_TEXT,
+    private static function makeRow(TBL $table, $texts = array(), $size = 10, $bold = false, $color = self::COLOR_PRIMARY_TEXT,
                              $align, $background = self::COLOR_WHITE, $width = 100, $height = 20){
 
         $align = !empty($align) ? $align : self::TEXT_ALIGN_HORIZONTAL_CENTER;
@@ -140,7 +140,6 @@ class Tables extends AbstractObject
             $row->getFill()->setFillType(Fill::FILL_SOLID)
                 ->setStartColor(new Color($background))
                 ->setEndColor(new Color($background));
-
 
             //set each columns
             foreach ($texts as $text) {
