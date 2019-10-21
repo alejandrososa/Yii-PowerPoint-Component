@@ -38,7 +38,7 @@ class Images extends AbstractObject
      * Create custom image into slide
      * @param array $params
      */
-    private function createCustomImage(Slide $slide, $params = array())
+    private static function createCustomImage(Slide $slide, $params = array())
     {
         $height         = Helper::hasArrayProperty('height', $params) ? $params['height'] : self::TEXT_HEIGHT;
         $width          = Helper::hasArrayProperty('width', $params) ? $params['width'] : self::TEXT_WIDTH;
